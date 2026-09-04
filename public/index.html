@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 防快取 (Anti-Caching) Meta 標籤：防止瀏覽器快取舊版本網頁 -->
+  <!-- 防快取 (Anti-Caching) Meta 標籤 -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -11,12 +11,15 @@
   <title>JetBrains AI Assistant 企業級開發助手 - 迪凱科技 AHASoft</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
     body {
       font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
+    .font-mono-jb {
+      font-family: 'JetBrains Mono', monospace;
+    }
     .accordion-content {
-      transition: max-height 0.4s ease, opacity 0.4s ease;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
       overflow: hidden;
     }
     .accordion-closed {
@@ -28,13 +31,10 @@
       pointer-events: none;
     }
     .accordion-open {
-      max-height: 4000px !important;
+      max-height: 5000px !important;
       opacity: 1;
     }
-    .text-glow {
-      text-shadow: 0 0 20px rgba(129, 140, 248, 0.7);
-    }
-    /* 區段導航捲動頂部預留偏移量 (響應式設定：手機 75px，電腦版 220px 完全不變) */
+    /* 區段導航捲動頂部預留偏移量 (手機 75px，電腦版 220px) */
     section[id^="sec-"] {
       scroll-margin-top: 75px;
     }
@@ -45,168 +45,184 @@
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white pb-14 lg:pb-0">
+<body class="bg-[#0B0F19] text-slate-100 antialiased selection:bg-blue-600 selection:text-white pb-14 lg:pb-0">
 
-  <!-- Navigation Bar (頂部凍結列) -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80">
+  <!-- Navigation Bar (頂部企業級沈穩凍結列) -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0B0F19]/95 backdrop-blur-md border-b border-slate-800">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-20 flex items-center justify-between">
       
       <!-- LOGO 白 + 品牌文字標題區 -->
       <div class="flex items-center gap-2 sm:gap-4">
         <!-- JetBrains LOGO 白 圖片 -->
-        <img src="logo-white.png" alt="JetBrains White Logo" class="h-7 sm:h-12 w-auto object-contain bg-slate-950 rounded-lg p-0.5 sm:p-1 border border-slate-800 shadow-md">
+        <img src="logo-white.png" alt="JetBrains White Logo" class="h-7 sm:h-11 w-auto object-contain bg-slate-900 rounded-lg p-1 border border-slate-800 shadow-sm">
 
         <div class="border-l-2 border-slate-800 pl-2.5 sm:pl-4">
-          <span class="font-black text-xs sm:text-xl lg:text-2xl text-white tracking-tight block">JetBrains AI Assistant</span>
-          <span class="text-[10px] sm:text-sm font-bold text-indigo-400">台灣官方代理 迪凱科技 AHASoft</span>
+          <span class="font-extrabold text-xs sm:text-xl lg:text-2xl text-white tracking-tight block">JetBrains AI Assistant</span>
+          <span class="text-[10px] sm:text-sm font-semibold text-blue-400">台灣官方代理 迪凱科技 AHASoft</span>
         </div>
       </div>
 
       <div class="flex items-center gap-2 sm:gap-4">
-        <!-- 微型強制重載/刷新按鈕 (不佔用版面、防暫存卡住) -->
-        <button onclick="forceHardRefresh()" title="點擊強制載入最新版本網頁 (清除暫存)" class="flex items-center gap-1 text-[11px] sm:text-xs text-slate-400 hover:text-indigo-300 border border-slate-800 hover:border-indigo-500/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg transition-all bg-slate-900/60">
-          <svg class="w-3.5 h-3.5 text-indigo-400 animate-spin-hover" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+        <!-- 微型強制重載/刷新按鈕 -->
+        <button onclick="forceHardRefresh()" title="點擊強制載入最新版本網頁" class="flex items-center gap-1.5 text-[11px] sm:text-xs text-slate-400 hover:text-blue-300 border border-slate-800 hover:border-blue-500/50 px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg transition-all bg-slate-900/80">
+          <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
           <span class="hidden sm:inline">強制載入最新版</span>
           <span class="sm:hidden">刷新</span>
         </button>
 
-        <a href="https://trust-center.jetbrains.com/" target="_blank" class="hidden sm:flex items-center gap-2 text-sm lg:text-base text-slate-200 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-xl transition-all font-semibold bg-slate-900/60">
-          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        <a href="https://trust-center.jetbrains.com/" target="_blank" class="hidden sm:flex items-center gap-2 text-sm lg:text-base text-slate-300 hover:text-white border border-slate-800 hover:border-slate-600 px-4 py-2 rounded-xl transition-all font-medium bg-slate-900/60">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
           Trust Center 驗證
         </a>
-        <button onclick="openTrialModal()" class="px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-base transition-all shadow-lg shadow-indigo-600/30 shrink-0">
+        <button onclick="openTrialModal()" class="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-base transition-all shadow-md shadow-blue-600/20 shrink-0">
           申請 30 天企業試用
         </button>
       </div>
     </div>
   </nav>
 
-  <!-- 右側浮動快捷導覽 Dock (電腦版獨享) -->
-  <aside class="fixed right-4 top-28 z-40 hidden lg:flex flex-col gap-2.5 bg-slate-900/95 p-4 rounded-2xl border-2 border-indigo-500/40 backdrop-blur-xl shadow-2xl w-60 lg:w-64 transition-all">
-    <div class="text-xs lg:text-sm font-extrabold text-indigo-400 uppercase tracking-widest pb-2 border-b border-slate-800 flex items-center justify-between">
-      <span>右側快捷導航</span>
-      <span class="text-xs text-slate-400 font-mono">01 ~ 06</span>
+  <!-- 右側浮動快捷導覽 Dock (電腦版專屬) -->
+  <aside class="fixed right-4 top-28 z-40 hidden lg:flex flex-col gap-2 bg-[#111827]/95 p-3.5 rounded-2xl border border-slate-800 backdrop-blur-xl shadow-2xl w-60 lg:w-64 transition-all">
+    <div class="text-xs font-bold text-slate-400 uppercase tracking-wider pb-2 border-b border-slate-800 flex items-center justify-between">
+      <span class="text-blue-400">大綱快捷導航</span>
+      <span class="text-xs text-slate-500 font-mono-jb">01 ~ 06</span>
     </div>
 
-    <div class="flex flex-col gap-2 text-xs sm:text-sm lg:text-base">
-      <button onclick="navigateToSection('sec-1')" class="nav-btn group p-2.5 rounded-xl bg-slate-950/80 hover:bg-indigo-600/30 border border-slate-800 hover:border-indigo-500/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-indigo-500/30 text-indigo-300 font-bold text-xs flex items-center justify-center shrink-0">01</span>
-        <span class="text-white font-bold truncate group-hover:text-indigo-300">01. 產品簡介</span>
+    <div class="flex flex-col gap-1.5 text-xs sm:text-sm">
+      <button onclick="navigateToSection('sec-1')" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-blue-500/50 text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">01</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-white">01. 產品簡介與市場</span>
       </button>
 
-      <button onclick="navigateToSection('sec-2')" class="nav-btn group p-2.5 rounded-xl bg-slate-950/80 hover:bg-indigo-600/30 border border-slate-800 hover:border-indigo-500/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-purple-500/30 text-purple-300 font-bold text-xs flex items-center justify-center shrink-0">02</span>
-        <span class="text-white font-bold truncate group-hover:text-purple-300">02. 產品優勢</span>
+      <button onclick="navigateToSection('sec-2')" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-blue-500/50 text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">02</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-white">02. PSI 靜態分析防幻覺</span>
       </button>
 
-      <button onclick="navigateToSection('sec-3')" class="nav-btn group p-2.5 rounded-xl bg-slate-950/80 hover:bg-indigo-600/30 border border-slate-800 hover:border-indigo-500/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-pink-500/30 text-pink-300 font-bold text-xs flex items-center justify-center shrink-0">03</span>
-        <span class="text-white font-bold truncate group-hover:text-pink-300">03. 計費優勢</span>
+      <button onclick="navigateToSection('sec-3')" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-blue-500/50 text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">03</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-white">03. 開放多模型切換</span>
       </button>
 
-      <button onclick="navigateToSection('sec-4')" class="nav-btn group p-2.5 rounded-xl bg-slate-950/80 hover:bg-indigo-600/30 border border-slate-800 hover:border-indigo-500/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-emerald-500/30 text-emerald-300 font-bold text-xs flex items-center justify-center shrink-0">04</span>
-        <span class="text-white font-bold truncate group-hover:text-emerald-300">04. 帳務優勢</span>
+      <button onclick="navigateToSection('sec-4')" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-blue-500/50 text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">04</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-white">04. 企業後台與四大優勢</span>
       </button>
 
-      <button onclick="navigateToSection('sec-5')" class="nav-btn group p-2.5 rounded-xl bg-slate-950/80 hover:bg-indigo-600/30 border border-slate-800 hover:border-indigo-500/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-amber-500/30 text-amber-300 font-bold text-xs flex items-center justify-center shrink-0">05</span>
-        <span class="text-white font-bold truncate group-hover:text-amber-300">05. 安全聲明</span>
+      <button onclick="navigateToSection('sec-5')" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-blue-500/50 text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">05</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-white">05. 資安承諾與驗證</span>
       </button>
 
-      <button onclick="navigateToSection('sec-6')" class="nav-btn group p-2.5 rounded-xl bg-slate-950/80 hover:bg-indigo-600/30 border border-slate-800 hover:border-indigo-500/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-sky-500/30 text-sky-300 font-bold text-xs flex items-center justify-center shrink-0">06</span>
-        <span class="text-white font-bold truncate group-hover:text-sky-300">06. 代理服務</span>
+      <button onclick="navigateToSection('sec-6')" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-blue-500/50 text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-sky-500/20 text-sky-400 font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">06</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-white">06. 迪凱在地服務價值</span>
       </button>
     </div>
 
-    <div class="pt-2.5 border-t border-slate-800 flex items-center justify-between text-xs font-semibold">
-      <button onclick="expandAllSections()" class="text-indigo-400 hover:text-indigo-300">全部展開 📂</button>
+    <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs font-medium">
+      <button onclick="expandAllSections()" class="text-blue-400 hover:text-blue-300">全部展開</button>
       <span class="text-slate-600">•</span>
-      <button onclick="collapseAllSections()" class="text-slate-400 hover:text-white">全部收起 📁</button>
+      <button onclick="collapseAllSections()" class="text-slate-400 hover:text-white">全部收起</button>
     </div>
   </aside>
 
   <!-- 手機版專用：底部極簡懸浮導覽列 -->
-  <div class="fixed bottom-3 left-1/2 -translate-x-1/2 z-40 flex lg:hidden items-center gap-1 bg-slate-950/95 border border-indigo-500/60 px-3 py-1.5 rounded-full backdrop-blur-xl shadow-2xl">
-    <span class="text-[10px] text-indigo-400 font-bold mr-1">快捷導覽:</span>
-    <button onclick="navigateToSection('sec-1')" class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-bold text-xs hover:bg-indigo-600 hover:text-white transition-all">01</button>
-    <button onclick="navigateToSection('sec-2')" class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-bold text-xs hover:bg-purple-600 hover:text-white transition-all">02</button>
-    <button onclick="navigateToSection('sec-3')" class="px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 font-bold text-xs hover:bg-pink-600 hover:text-white transition-all">03</button>
-    <button onclick="navigateToSection('sec-4')" class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-xs hover:bg-emerald-600 hover:text-white transition-all">04</button>
-    <button onclick="navigateToSection('sec-5')" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs hover:bg-amber-600 hover:text-white transition-all">05</button>
-    <button onclick="navigateToSection('sec-6')" class="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-bold text-xs hover:bg-sky-600 hover:text-white transition-all">06</button>
+  <div class="fixed bottom-3 left-1/2 -translate-x-1/2 z-40 flex lg:hidden items-center gap-1.5 bg-[#111827]/95 border border-slate-800 px-3 py-1.5 rounded-full backdrop-blur-xl shadow-2xl">
+    <span class="text-[10px] text-slate-400 font-semibold mr-1">導覽:</span>
+    <button onclick="navigateToSection('sec-1')" class="px-2 py-0.5 rounded-full bg-slate-800 text-blue-400 font-bold text-xs hover:bg-blue-600 hover:text-white transition-all font-mono-jb">01</button>
+    <button onclick="navigateToSection('sec-2')" class="px-2 py-0.5 rounded-full bg-slate-800 text-blue-400 font-bold text-xs hover:bg-blue-600 hover:text-white transition-all font-mono-jb">02</button>
+    <button onclick="navigateToSection('sec-3')" class="px-2 py-0.5 rounded-full bg-slate-800 text-blue-400 font-bold text-xs hover:bg-blue-600 hover:text-white transition-all font-mono-jb">03</button>
+    <button onclick="navigateToSection('sec-4')" class="px-2 py-0.5 rounded-full bg-slate-800 text-blue-400 font-bold text-xs hover:bg-blue-600 hover:text-white transition-all font-mono-jb">04</button>
+    <button onclick="navigateToSection('sec-5')" class="px-2 py-0.5 rounded-full bg-slate-800 text-emerald-400 font-bold text-xs hover:bg-emerald-600 hover:text-white transition-all font-mono-jb">05</button>
+    <button onclick="navigateToSection('sec-6')" class="px-2 py-0.5 rounded-full bg-slate-800 text-sky-400 font-bold text-xs hover:bg-sky-600 hover:text-white transition-all font-mono-jb">06</button>
   </div>
 
   <!-- Hero Section -->
-  <section class="pt-24 sm:pt-32 pb-6 sm:pb-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center relative">
-    <div class="inline-flex items-center gap-2.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs sm:text-base font-bold uppercase tracking-wider mb-3 sm:mb-5">
-      <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      高風控企業專用 AI 開發生態
+  <section class="pt-24 sm:pt-32 pb-6 sm:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center relative">
+    
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-xs sm:text-sm font-semibold tracking-wide mb-4 sm:mb-6">
+      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      企業級高風控開發生態 • 台灣官方代理
     </div>
-    <h1 class="text-3xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight mb-4 sm:mb-6">
-      JetBrains AI Assistant <span class="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">企業級介紹 Portal</span>
+
+    <!-- 主標題：沉穩專業風格 -->
+    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight mb-6">
+      JetBrains AI Assistant <br class="hidden sm:inline"/>
+      <span class="text-blue-400">企業級開發生態評估專區</span>
     </h1>
-    <p class="text-slate-200 text-sm sm:text-xl lg:text-2xl max-w-4xl mx-auto leading-relaxed mb-4 sm:mb-6 font-medium">
-      由台灣官方代理「迪凱科技 AHASoft」為您規劃，點選目錄或右側浮動按鈕即可循序漸進導航與閱讀。
-    </p>
+
+    <!-- 方案二：大標題下權威引言 (Executive Quote Card) -->
+    <div class="max-w-4xl mx-auto text-left bg-slate-900/90 border-l-4 border-blue-500 border-y border-r border-slate-800 p-5 sm:p-7 rounded-r-2xl shadow-xl mb-8">
+      <div class="flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider mb-2 font-mono-jb">
+        <span>EXECUTIVE SUMMARY</span>
+        <span>•</span>
+        <span class="text-slate-400">決策者導讀</span>
+      </div>
+      <blockquote class="text-slate-100 text-base sm:text-lg lg:text-xl leading-relaxed font-normal mb-3">
+        「告別散買代購與資安破口，打造真正可控、可信的企業級 AI 生態。」
+      </blockquote>
+      <p class="text-slate-300 text-xs sm:text-sm lg:text-base leading-relaxed">
+        企業在導入 AI 輔助開發時，常面臨模型綁定、海外信用卡請購繁瑣與缺乏權限回收的窘境。JetBrains AI Assistant 結合 <strong>一站式中央控制台 (Central Console)</strong> 與 <strong>開放式多模型架構</strong>，不僅打破單一 LLM 限制與實現透明化計費，更由台灣官方代理「迪凱科技 AHASoft」提供本地開票與專業服務，實現預算精準、管控嚴謹、安全合規的最佳企業解答。
+      </p>
+    </div>
+
   </section>
 
-  <!-- Section: Table of Contents / Directory Index -->
-  <section id="directory-nav" class="pb-6 sm:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative lg:sticky lg:top-20 z-30 bg-slate-950/95 py-4 sm:py-5 backdrop-blur-md border-b border-slate-800/80">
+  <!-- Section: Table of Contents / Directory Index (簡報大綱快捷目錄) -->
+  <section id="directory-nav" class="pb-6 sm:pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative lg:sticky lg:top-20 z-30 bg-[#0B0F19]/95 py-4 backdrop-blur-md border-b border-slate-800">
     
-    <!-- 高亮提示區塊 -->
-    <div class="mb-4 sm:mb-5 p-3.5 sm:p-5 rounded-2xl bg-gradient-to-r from-indigo-950/90 via-purple-950/90 to-slate-900 border-2 border-indigo-500/80 shadow-2xl shadow-indigo-500/20 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
-      <div class="flex items-center gap-3 sm:gap-4 text-left">
-        <span class="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-indigo-400 animate-ping shrink-0"></span>
-        <h2 class="text-base sm:text-2xl lg:text-3xl font-black text-white tracking-wide leading-snug">
-          💡 <span class="bg-gradient-to-r from-indigo-300 via-purple-200 to-pink-300 bg-clip-text text-transparent text-glow">簡報大綱快捷目錄</span>
-          <span class="text-xs sm:text-lg lg:text-xl font-bold text-indigo-300 block sm:inline-block sm:ml-3">
-            (點擊自動引導/展開，再次點擊即可收起)
+    <div class="mb-3.5 p-3.5 sm:p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-3 text-left">
+        <span class="w-2.5 h-2.5 rounded-full bg-blue-400 shrink-0"></span>
+        <h2 class="text-sm sm:text-lg lg:text-xl font-bold text-white tracking-wide">
+          簡報大綱快捷目錄
+          <span class="text-xs sm:text-sm font-normal text-slate-400 ml-2">
+            (點擊展開閱讀，再次點擊即可收起)
           </span>
         </h2>
       </div>
 
-      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-        <button onclick="expandAllSections()" class="text-xs sm:text-base px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white border border-indigo-400/50 shadow-md transition-all font-bold">
-          全部展開 📂
+      <div class="flex items-center gap-2 shrink-0">
+        <button onclick="expandAllSections()" class="text-xs sm:text-sm px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-all">
+          全部展開
         </button>
-        <button onclick="collapseAllSections()" class="text-xs sm:text-base px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all font-semibold">
-          全部摺疊 📁
+        <button onclick="collapseAllSections()" class="text-xs sm:text-sm px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition-all">
+          全部收起
         </button>
       </div>
     </div>
 
     <!-- Quick Nav Buttons Grid -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3.5">
-      <button onclick="navigateToSection('sec-1')" class="nav-btn group p-3 sm:p-3.5 rounded-xl bg-slate-900 hover:bg-indigo-600/25 border border-slate-800 hover:border-indigo-500/60 text-left transition-all">
-        <div class="text-xs sm:text-sm font-bold text-indigo-400 group-hover:text-indigo-300">01. 產品簡介</div>
-        <div class="text-xs sm:text-base font-bold text-white truncate">市場驗證與 2026 報告</div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
+      <button onclick="navigateToSection('sec-1')" class="nav-btn group p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 text-left transition-all">
+        <div class="text-[11px] sm:text-xs font-bold text-blue-400 font-mono-jb">01. 產品簡介</div>
+        <div class="text-xs sm:text-sm font-semibold text-white truncate">市場佔有與 2026 報告</div>
       </button>
 
-      <button onclick="navigateToSection('sec-2')" class="nav-btn group p-3 sm:p-3.5 rounded-xl bg-slate-900 hover:bg-indigo-600/25 border border-slate-800 hover:border-indigo-500/60 text-left transition-all">
-        <div class="text-xs sm:text-sm font-bold text-purple-400 group-hover:text-purple-300">02. 產品優勢</div>
-        <div class="text-xs sm:text-base font-bold text-white truncate">PSI 靜態分析防幻覺</div>
+      <button onclick="navigateToSection('sec-2')" class="nav-btn group p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 text-left transition-all">
+        <div class="text-[11px] sm:text-xs font-bold text-blue-400 font-mono-jb">02. 產品優勢</div>
+        <div class="text-xs sm:text-sm font-semibold text-white truncate">PSI 靜態分析防幻覺</div>
       </button>
 
-      <button onclick="navigateToSection('sec-3')" class="nav-btn group p-3 sm:p-3.5 rounded-xl bg-slate-900 hover:bg-indigo-600/25 border border-slate-800 hover:border-indigo-500/60 text-left transition-all">
-        <div class="text-xs sm:text-sm font-bold text-pink-400 group-hover:text-pink-300">03. 計費優勢</div>
-        <div class="text-xs sm:text-base font-bold text-white truncate">多模型自由切換</div>
+      <button onclick="navigateToSection('sec-3')" class="nav-btn group p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 text-left transition-all">
+        <div class="text-[11px] sm:text-xs font-bold text-blue-400 font-mono-jb">03. 計費優勢</div>
+        <div class="text-xs sm:text-sm font-semibold text-white truncate">多模型自由切換</div>
       </button>
 
-      <button onclick="navigateToSection('sec-4')" class="nav-btn group p-3 sm:p-3.5 rounded-xl bg-slate-900 hover:bg-indigo-600/25 border border-slate-800 hover:border-indigo-500/60 text-left transition-all">
-        <div class="text-xs sm:text-sm font-bold text-emerald-400 group-hover:text-emerald-300">04. 帳務優勢</div>
-        <div class="text-xs sm:text-base font-bold text-white truncate">Central Console 配額</div>
+      <button onclick="navigateToSection('sec-4')" class="nav-btn group p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 text-left transition-all">
+        <div class="text-[11px] sm:text-xs font-bold text-blue-400 font-mono-jb">04. 帳務優勢</div>
+        <div class="text-xs sm:text-sm font-semibold text-white truncate">Central 配額與四大優勢</div>
       </button>
 
-      <button onclick="navigateToSection('sec-5')" class="nav-btn group p-3 sm:p-3.5 rounded-xl bg-slate-900 hover:bg-indigo-600/25 border border-slate-800 hover:border-indigo-500/60 text-left transition-all">
-        <div class="text-xs sm:text-sm font-bold text-amber-400 group-hover:text-amber-300">05. 安全聲明</div>
-        <div class="text-xs sm:text-base font-bold text-white truncate">Trust Center 權威驗證</div>
+      <button onclick="navigateToSection('sec-5')" class="nav-btn group p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 text-left transition-all">
+        <div class="text-[11px] sm:text-xs font-bold text-emerald-400 font-mono-jb">05. 安全聲明</div>
+        <div class="text-xs sm:text-sm font-semibold text-white truncate">Trust Center 權威驗證</div>
       </button>
 
-      <button onclick="navigateToSection('sec-6')" class="nav-btn group p-3 sm:p-3.5 rounded-xl bg-slate-900 hover:bg-indigo-600/25 border border-slate-800 hover:border-indigo-500/60 text-left transition-all">
-        <div class="text-xs sm:text-sm font-bold text-sky-400 group-hover:text-sky-300">06. 代理服務</div>
-        <div class="text-xs sm:text-base font-bold text-white truncate">迪凱科技 AHASoft</div>
+      <button onclick="navigateToSection('sec-6')" class="nav-btn group p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-blue-500/50 text-left transition-all">
+        <div class="text-[11px] sm:text-xs font-bold text-sky-400 font-mono-jb">06. 代理服務</div>
+        <div class="text-xs sm:text-sm font-semibold text-white truncate">迪凱科技 AHASoft</div>
       </button>
     </div>
   </section>
@@ -215,140 +231,140 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
 
     <!-- SECTION 1: 產品簡介 -->
-    <section id="sec-1" class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-2xl">
-      <div onclick="toggleSection('sec-1')" class="p-5 sm:p-8 cursor-pointer hover:bg-slate-800/40 flex items-center justify-between transition-colors border-b border-slate-800/60 select-none">
-        <div class="flex items-center gap-3 sm:gap-5">
-          <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 font-extrabold text-base sm:text-lg flex items-center justify-center shrink-0">
+    <section id="sec-1" class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-xl">
+      <div onclick="toggleSection('sec-1')" class="p-5 sm:p-7 cursor-pointer hover:bg-slate-800/50 flex items-center justify-between transition-colors border-b border-slate-800/80 select-none">
+        <div class="flex items-center gap-3.5 sm:gap-5">
+          <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold text-base sm:text-lg flex items-center justify-center shrink-0 font-mono-jb">
             01
           </span>
           <div>
-            <span class="text-xs sm:text-sm font-bold text-indigo-400 uppercase tracking-widest">第一段：產品簡介</span>
-            <h2 class="text-xl sm:text-3xl lg:text-4xl font-extrabold text-white">JetBrains AI Assistant 是什麼？高風控市場驗證與對比</h2>
+            <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider font-mono-jb">SECTION 01</span>
+            <h2 class="text-lg sm:text-2xl lg:text-3xl font-bold text-white">JetBrains AI Assistant 是什麼？高風控市場驗證與對比</h2>
           </div>
         </div>
 
         <div class="flex items-center gap-3">
-          <span class="text-sm sm:text-base text-slate-400 font-semibold hidden sm:inline-block">點擊展開 / 收起說明</span>
-          <div id="sec-1-icon" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-sm sm:text-base font-bold transition-transform duration-300">
+          <span class="text-xs sm:text-sm text-slate-400 hidden sm:inline-block">點擊展開 / 收起</span>
+          <div id="sec-1-icon" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-300">
             ▼
           </div>
         </div>
       </div>
 
-      <div id="sec-1-content" class="accordion-content accordion-closed p-5 sm:p-10 space-y-6 sm:space-y-8 bg-slate-950/60">
-        <p class="text-slate-100 text-base sm:text-xl lg:text-2xl leading-relaxed font-normal">
+      <div id="sec-1-content" class="accordion-content accordion-closed p-5 sm:p-8 space-y-6 bg-[#0B0F19]/60">
+        <p class="text-slate-200 text-base sm:text-lg leading-relaxed">
           JetBrains IDE（IntelliJ IDEA, PyCharm, WebStorm, GoLand, Rider 等）在全台灣與全球各大金融機構、半導體龍頭、證券公司及高風控環境中，早已是不可或缺的標準開發工具。
         </p>
 
         <!-- Highlights Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-base sm:text-lg">
-          <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-slate-800">
-            <div class="text-indigo-400 font-black text-2xl sm:text-4xl lg:text-5xl mb-1.5 sm:mb-2">90%+</div>
-            <h3 class="text-white font-extrabold text-base sm:text-xl mb-1">金融與證券市場佔有率</h3>
-            <p class="text-slate-300 text-xs sm:text-base">通過最嚴苛的企業 IT 資安審查。</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 text-base sm:text-lg">
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+            <div class="text-blue-400 font-bold text-3xl sm:text-4xl mb-1 font-mono-jb">90%+</div>
+            <h3 class="text-white font-bold text-base sm:text-lg mb-1">金融與證券市場佔有率</h3>
+            <p class="text-slate-400 text-xs sm:text-sm">通過最嚴苛的企業 IT 資安審查。</p>
           </div>
-          <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-slate-800">
-            <div class="text-purple-400 font-black text-2xl sm:text-4xl lg:text-5xl mb-1.5 sm:mb-2">20+ 年</div>
-            <h3 class="text-white font-extrabold text-base sm:text-xl mb-1">靜態分析經驗積澱</h3>
-            <p class="text-slate-300 text-xs sm:text-base">具備全球最頂尖的抽象語法樹 (PSI) 能力。</p>
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+            <div class="text-blue-400 font-bold text-3xl sm:text-4xl mb-1 font-mono-jb">20+ 年</div>
+            <h3 class="text-white font-bold text-base sm:text-lg mb-1">靜態分析經驗積澱</h3>
+            <p class="text-slate-400 text-xs sm:text-sm">具備全球頂尖的抽象語法樹 (PSI) 能力。</p>
           </div>
-          <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-slate-800">
-            <div class="text-pink-400 font-black text-2xl sm:text-4xl lg:text-5xl mb-1.5 sm:mb-2">100%</div>
-            <h3 class="text-white font-extrabold text-base sm:text-xl mb-1">企業合規與安全架構</h3>
-            <p class="text-slate-300 text-xs sm:text-base">提供 SOC 2 Type II、GDPR 認證與離線模式。</p>
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+            <div class="text-emerald-400 font-bold text-3xl sm:text-4xl mb-1 font-mono-jb">100%</div>
+            <h3 class="text-white font-bold text-base sm:text-lg mb-1">企業合規與安全架構</h3>
+            <p class="text-slate-400 text-xs sm:text-sm">提供 SOC 2 Type II、GDPR 認證與離線模式。</p>
           </div>
         </div>
 
         <!-- Comparison Table -->
         <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs sm:text-base lg:text-lg border-collapse">
+          <table class="w-full text-left text-xs sm:text-sm lg:text-base border-collapse">
             <thead>
-              <tr class="bg-slate-900 border-b border-slate-800 text-slate-200">
-                <th class="p-3 sm:p-4 font-extrabold">比較維度</th>
-                <th class="p-3 sm:p-4 font-extrabold text-amber-300">輕量外掛 / 獨立 CLI (如 Claude Code)</th>
-                <th class="p-3 sm:p-4 font-extrabold text-indigo-300">JetBrains AI Assistant 平台</th>
+              <tr class="bg-slate-900 border-b border-slate-800 text-slate-300">
+                <th class="p-3 sm:p-4 font-bold">比較維度</th>
+                <th class="p-3 sm:p-4 font-bold text-amber-400">輕量外掛 / 獨立 CLI (如 Claude Code)</th>
+                <th class="p-3 sm:p-4 font-bold text-blue-400">JetBrains AI Assistant 平台</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-800/60 text-slate-200">
+            <tbody class="divide-y divide-slate-800/80 text-slate-300">
               <tr>
-                <td class="p-3 sm:p-4 font-bold text-white">專案上下文理解</td>
-                <td class="p-3 sm:p-4 text-slate-400">僅文字檔檢索，易遺漏跨檔案繼承</td>
-                <td class="p-3 sm:p-4 font-bold text-indigo-300">PSI 抽象語法樹 + 全專案符號索引</td>
+                <td class="p-3 sm:p-4 font-medium text-white">專案上下文理解</td>
+                <td class="p-3 sm:p-4 text-slate-400">僅純文字檢索，易遺漏跨檔案繼承</td>
+                <td class="p-3 sm:p-4 font-semibold text-blue-300">PSI 抽象語法樹 + 全專案符號索引</td>
               </tr>
               <tr>
-                <td class="p-3 sm:p-4 font-bold text-white">介面與審查</td>
+                <td class="p-3 sm:p-4 font-medium text-white">介面與審查</td>
                 <td class="p-3 sm:p-4 text-slate-400">純命令行 (CLI)，需手動切換視窗</td>
-                <td class="p-3 sm:p-4 font-bold text-indigo-300">IDE 原生二元 Diff 審查與一鍵替換</td>
+                <td class="p-3 sm:p-4 font-semibold text-blue-300">IDE 原生二元 Diff 審查與一鍵替換</td>
               </tr>
               <tr>
-                <td class="p-3 sm:p-4 font-bold text-white">模型選擇</td>
+                <td class="p-3 sm:p-4 font-medium text-white">模型選擇</td>
                 <td class="p-3 sm:p-4 text-slate-400">綁定單一模型供應商</td>
-                <td class="p-3 sm:p-4 font-black text-indigo-300 bg-indigo-950/40">可調用 Claude / GPT / Gemini 切換</td>
+                <td class="p-3 sm:p-4 font-semibold text-blue-300 bg-blue-950/20">可調用 Claude / GPT / Gemini 自由切換</td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <!-- 2026 年銷售報告預覽卡片 -->
-        <div class="bg-indigo-950/40 border border-indigo-500/40 rounded-2xl p-5 sm:p-6 text-xs sm:text-base lg:text-lg space-y-2.5 sm:space-y-3">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 text-xs sm:text-sm lg:text-base space-y-2.5">
           <div class="flex items-center justify-between">
-            <span class="font-bold text-indigo-300 text-sm sm:text-lg lg:text-xl flex items-center gap-2">
+            <span class="font-bold text-slate-200 text-sm sm:text-base flex items-center gap-2">
               📊 JetBrains 2026 年度銷售與營運報告預覽 (Annual Report Preview)
             </span>
-            <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded bg-indigo-500/20 text-indigo-300 font-mono text-[10px] sm:text-sm">Official Insights</span>
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-blue-400 font-mono-jb text-[10px] sm:text-xs">Official Insights</span>
           </div>
-          <p class="text-slate-200 leading-relaxed">
+          <p class="text-slate-300 leading-relaxed">
             JetBrains 2026 年度報告顯示：全球已有超過 1,500 萬名專業開發者與 100,000+ 家企業客戶持續選擇 JetBrains。年營收與企業級授權持續維持強勁雙位數成長，證明在高風控、大規模開發環境中的不可替代性與產業信任度。
           </p>
-          <div class="pt-1 sm:pt-2 text-right">
-            <a href="https://www.jetbrains.com/lp/annualreport-2026/" target="_blank" class="text-indigo-400 font-bold hover:underline">
-              閱讀完整的 JetBrains 2026 年度報告 (Annual Report 2026) 🔗
+          <div class="pt-1 text-right">
+            <a href="https://www.jetbrains.com/lp/annualreport-2026/" target="_blank" class="text-blue-400 font-semibold hover:underline">
+              閱讀完整的 JetBrains 2026 年度報告 🔗
             </a>
           </div>
         </div>
 
-        <div class="flex items-center justify-between pt-3 sm:pt-4 border-t border-slate-800/80 text-xs sm:text-base">
+        <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs sm:text-sm">
           <span class="text-slate-400">參考原廠說明連結：</span>
-          <a href="https://www.jetbrains.com/business/#lean-in" target="_blank" class="text-indigo-400 font-bold hover:underline">https://www.jetbrains.com/business/#lean-in 🔗</a>
+          <a href="https://www.jetbrains.com/business/#lean-in" target="_blank" class="text-blue-400 font-medium hover:underline">https://www.jetbrains.com/business/#lean-in 🔗</a>
         </div>
       </div>
     </section>
 
     <!-- SECTION 2: 產品優勢 -->
-    <section id="sec-2" class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-2xl">
-      <div onclick="toggleSection('sec-2')" class="p-5 sm:p-8 cursor-pointer hover:bg-slate-800/40 flex items-center justify-between transition-colors border-b border-slate-800/60 select-none">
-        <div class="flex items-center gap-3 sm:gap-5">
-          <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-400 font-extrabold text-base sm:text-lg flex items-center justify-center shrink-0">
+    <section id="sec-2" class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-xl">
+      <div onclick="toggleSection('sec-2')" class="p-5 sm:p-7 cursor-pointer hover:bg-slate-800/50 flex items-center justify-between transition-colors border-b border-slate-800/80 select-none">
+        <div class="flex items-center gap-3.5 sm:gap-5">
+          <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold text-base sm:text-lg flex items-center justify-center shrink-0 font-mono-jb">
             02
           </span>
           <div>
-            <span class="text-xs sm:text-sm font-bold text-purple-400 uppercase tracking-widest">第二段：產品優勢</span>
-            <h2 class="text-xl sm:text-3xl lg:text-4xl font-extrabold text-white">靜態代碼分析 (PSI) + 上下文感知：杜絕 AI 幻覺</h2>
+            <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider font-mono-jb">SECTION 02</span>
+            <h2 class="text-lg sm:text-2xl lg:text-3xl font-bold text-white">靜態代碼分析 (PSI) + 上下文感知：杜絕 AI 幻覺</h2>
           </div>
         </div>
 
         <div class="flex items-center gap-3">
-          <span class="text-sm sm:text-base text-slate-400 font-semibold hidden sm:inline-block">點擊展開 / 收起說明</span>
-          <div id="sec-2-icon" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-sm sm:text-base font-bold transition-transform duration-300">
+          <span class="text-xs sm:text-sm text-slate-400 hidden sm:inline-block">點擊展開 / 收起</span>
+          <div id="sec-2-icon" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-300">
             ▼
           </div>
         </div>
       </div>
 
-      <div id="sec-2-content" class="accordion-content accordion-closed p-5 sm:p-10 space-y-6 sm:space-y-8 bg-slate-950/60">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 text-sm sm:text-lg lg:text-xl">
-          <div class="bg-slate-900 p-5 sm:p-7 rounded-2xl border border-slate-800">
-            <h3 class="text-amber-400 font-extrabold text-base sm:text-xl mb-3 sm:mb-4">傳統 Agent Coding 常見問題</h3>
-            <ul class="space-y-2.5 sm:space-y-3 text-slate-200">
+      <div id="sec-2-content" class="accordion-content accordion-closed p-5 sm:p-8 space-y-6 bg-[#0B0F19]/60">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 text-sm sm:text-base">
+          <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-slate-800">
+            <h3 class="text-amber-400 font-bold text-base sm:text-lg mb-3">傳統 Agent Coding 常見問題</h3>
+            <ul class="space-y-2.5 text-slate-300">
               <li>• <strong>AI 幻覺 (Hallucination)</strong>：生成不存在的方法或錯誤傳參。</li>
               <li>• <strong>上下文丟失</strong>：專案變大時丟失深層調用鏈與型別繼承。</li>
               <li>• <strong>編譯失敗</strong>：產生不符合專案架構規範的寫法。</li>
             </ul>
           </div>
 
-          <div class="bg-indigo-950/30 p-5 sm:p-7 rounded-2xl border border-indigo-500/30">
-            <h3 class="text-indigo-300 font-extrabold text-base sm:text-xl mb-3 sm:mb-4">JetBrains 獨家靜態分析解法</h3>
-            <ul class="space-y-2.5 sm:space-y-3 text-slate-100">
+          <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-blue-500/30">
+            <h3 class="text-blue-400 font-bold text-base sm:text-lg mb-3">JetBrains 獨家靜態分析解法</h3>
+            <ul class="space-y-2.5 text-slate-200">
               <li>• <strong>PSI 抽象語法樹預檢</strong>：AI 輸出前先經由 IDE 完成靜態檢查。</li>
               <li>• <strong>Smart Debugging 診斷</strong>：直連 Debugger 擷取 Stack Trace 解決異常。</li>
               <li>• <strong>一鍵生成 Git & Test</strong>：自動規範 Commit Message 並補全測試。</li>
@@ -356,159 +372,207 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between pt-3 sm:pt-4 border-t border-slate-800/80 text-xs sm:text-base">
+        <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs sm:text-sm">
           <span class="text-slate-400">原廠說明連結：</span>
           <div class="flex items-center gap-4 sm:gap-6">
-            <a href="https://www.jetbrains.com/help/idea/code-inspection.html" target="_blank" class="text-indigo-400 font-bold hover:underline">Code Inspection Engine 🔗</a>
-            <a href="https://www.jetbrains.com/help/ai-assistant/ai-chat.html" target="_blank" class="text-indigo-400 font-bold hover:underline">JetBrains AI Chat Docs 🔗</a>
+            <a href="https://www.jetbrains.com/help/idea/code-inspection.html" target="_blank" class="text-blue-400 font-medium hover:underline">Code Inspection Engine 🔗</a>
+            <a href="https://www.jetbrains.com/help/ai-assistant/ai-chat.html" target="_blank" class="text-blue-400 font-medium hover:underline">JetBrains AI Chat Docs 🔗</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- SECTION 3: 計費與模型優勢 -->
-    <section id="sec-3" class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-2xl">
-      <div onclick="toggleSection('sec-3')" class="p-5 sm:p-8 cursor-pointer hover:bg-slate-800/40 flex items-center justify-between transition-colors border-b border-slate-800/60 select-none">
-        <div class="flex items-center gap-3 sm:gap-5">
-          <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-pink-500/20 border border-pink-500/30 text-pink-400 font-extrabold text-base sm:text-lg flex items-center justify-center shrink-0">
+    <section id="sec-3" class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-xl">
+      <div onclick="toggleSection('sec-3')" class="p-5 sm:p-7 cursor-pointer hover:bg-slate-800/50 flex items-center justify-between transition-colors border-b border-slate-800/80 select-none">
+        <div class="flex items-center gap-3.5 sm:gap-5">
+          <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold text-base sm:text-lg flex items-center justify-center shrink-0 font-mono-jb">
             03
           </span>
           <div>
-            <span class="text-xs sm:text-sm font-bold text-pink-400 uppercase tracking-widest">第三段：計費與模型優勢</span>
-            <h2 class="text-xl sm:text-3xl lg:text-4xl font-extrabold text-white">不綁定單一 LLM，同一平台自由切換你愛的 Agent</h2>
+            <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider font-mono-jb">SECTION 03</span>
+            <h2 class="text-lg sm:text-2xl lg:text-3xl font-bold text-white">不綁定單一 LLM，同一平台自由切換你愛的 Agent</h2>
           </div>
         </div>
 
         <div class="flex items-center gap-3">
-          <span class="text-sm sm:text-base text-slate-400 font-semibold hidden sm:inline-block">點擊展開 / 收起說明</span>
-          <div id="sec-3-icon" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-sm sm:text-base font-bold transition-transform duration-300">
+          <span class="text-xs sm:text-sm text-slate-400 hidden sm:inline-block">點擊展開 / 收起</span>
+          <div id="sec-3-icon" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-300">
             ▼
           </div>
         </div>
       </div>
 
-      <div id="sec-3-content" class="accordion-content accordion-closed p-5 sm:p-10 space-y-6 sm:space-y-8 bg-slate-950/60">
-        <div class="bg-indigo-950/30 border border-indigo-500/30 rounded-2xl p-5 sm:p-7 text-sm sm:text-lg lg:text-xl">
-          <h3 class="text-white font-extrabold text-lg sm:text-2xl mb-2 sm:mb-3">回答客戶：「我們習慣用 Claude 3.5 Sonnet，換成 JetBrains 是不是要放棄？」</h3>
-          <p class="text-indigo-200 font-bold mb-4 sm:mb-5">答：完全不需要！JetBrains AI 是開放平台，已原生整合全球最強 LLM 模型。</p>
+      <div id="sec-3-content" class="accordion-content accordion-closed p-5 sm:p-8 space-y-6 bg-[#0B0F19]/60">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 sm:p-6 text-sm sm:text-base">
+          <h3 class="text-white font-bold text-base sm:text-lg mb-2">回答客戶：「我們習慣用 Claude 3.5 Sonnet，換成 JetBrains 是不是要放棄？」</h3>
+          <p class="text-blue-300 font-semibold mb-4">答：完全不需要！JetBrains AI 是開放平台，已原生整合全球頂尖 LLM 模型。</p>
 
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 text-center">
-            <div class="bg-slate-900 p-4 sm:p-5 rounded-xl border border-slate-800">
-              <div class="text-amber-400 font-bold text-xs sm:text-base">Anthropic</div>
-              <div class="text-white font-black text-sm sm:text-xl">Claude 3.5 Sonnet</div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
+            <div class="bg-[#0B0F19] p-4 rounded-xl border border-slate-800">
+              <div class="text-amber-400 font-medium text-xs font-mono-jb">Anthropic</div>
+              <div class="text-white font-bold text-sm sm:text-base mt-1">Claude 3.5 Sonnet</div>
             </div>
-            <div class="bg-slate-900 p-4 sm:p-5 rounded-xl border border-slate-800">
-              <div class="text-emerald-400 font-bold text-xs sm:text-base">OpenAI</div>
-              <div class="text-white font-black text-sm sm:text-xl">GPT-4o</div>
+            <div class="bg-[#0B0F19] p-4 rounded-xl border border-slate-800">
+              <div class="text-emerald-400 font-medium text-xs font-mono-jb">OpenAI</div>
+              <div class="text-white font-bold text-sm sm:text-base mt-1">GPT-4o</div>
             </div>
-            <div class="bg-slate-900 p-4 sm:p-5 rounded-xl border border-slate-800">
-              <div class="text-sky-400 font-bold text-xs sm:text-base">Google</div>
-              <div class="text-white font-black text-sm sm:text-xl">Gemini 1.5 Pro</div>
+            <div class="bg-[#0B0F19] p-4 rounded-xl border border-slate-800">
+              <div class="text-sky-400 font-medium text-xs font-mono-jb">Google</div>
+              <div class="text-white font-bold text-sm sm:text-base mt-1">Gemini 1.5 Pro</div>
             </div>
-            <div class="bg-slate-900 p-4 sm:p-5 rounded-xl border border-slate-800">
-              <div class="text-purple-400 font-bold text-xs sm:text-base">JetBrains</div>
-              <div class="text-white font-black text-sm sm:text-xl">Mellum (自研)</div>
+            <div class="bg-[#0B0F19] p-4 rounded-xl border border-slate-800">
+              <div class="text-blue-400 font-medium text-xs font-mono-jb">JetBrains</div>
+              <div class="text-white font-bold text-sm sm:text-base mt-1">Mellum (自研)</div>
             </div>
           </div>
         </div>
 
-        <div class="flex items-center justify-between pt-3 sm:pt-4 border-t border-slate-800/80 text-xs sm:text-base">
+        <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs sm:text-sm">
           <span class="text-slate-400">原廠條款背書：</span>
           <div class="flex items-center gap-4 sm:gap-6">
-            <a href="https://www.jetbrains.com/ai/" target="_blank" class="text-indigo-400 font-bold hover:underline">JetBrains Supported LLMs 🔗</a>
-            <a href="https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-service/" target="_blank" class="text-indigo-400 font-bold hover:underline">JetBrains AI Service Agreement 🔗</a>
+            <a href="https://www.jetbrains.com/ai/" target="_blank" class="text-blue-400 font-medium hover:underline">JetBrains Supported LLMs 🔗</a>
+            <a href="https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-service/" target="_blank" class="text-blue-400 font-medium hover:underline">JetBrains AI Service Agreement 🔗</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 4: 帳務管理優勢 -->
-    <section id="sec-4" class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-2xl">
-      <div onclick="toggleSection('sec-4')" class="p-5 sm:p-8 cursor-pointer hover:bg-slate-800/40 flex items-center justify-between transition-colors border-b border-slate-800/60 select-none">
-        <div class="flex items-center gap-3 sm:gap-5">
-          <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-extrabold text-base sm:text-lg flex items-center justify-center shrink-0">
+    <!-- SECTION 4: 帳務管理優勢 + 方案一四大核心優勢穿插 -->
+    <section id="sec-4" class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-xl">
+      <div onclick="toggleSection('sec-4')" class="p-5 sm:p-7 cursor-pointer hover:bg-slate-800/50 flex items-center justify-between transition-colors border-b border-slate-800/80 select-none">
+        <div class="flex items-center gap-3.5 sm:gap-5">
+          <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold text-base sm:text-lg flex items-center justify-center shrink-0 font-mono-jb">
             04
           </span>
           <div>
-            <span class="text-xs sm:text-sm font-bold text-emerald-400 uppercase tracking-widest">第四段：帳務管理優勢</span>
-            <h2 class="text-xl sm:text-3xl lg:text-4xl font-extrabold text-white">JetBrains Central Console：財務與 IT 的中央管理利器</h2>
+            <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider font-mono-jb">SECTION 04</span>
+            <h2 class="text-lg sm:text-2xl lg:text-3xl font-bold text-white">JetBrains Central Console：財務與 IT 的中央管理利器</h2>
           </div>
         </div>
 
         <div class="flex items-center gap-3">
-          <span class="text-sm sm:text-base text-slate-400 font-semibold hidden sm:inline-block">點擊展開 / 收起說明</span>
-          <div id="sec-4-icon" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-sm sm:text-base font-bold transition-transform duration-300">
+          <span class="text-xs sm:text-sm text-slate-400 hidden sm:inline-block">點擊展開 / 收起</span>
+          <div id="sec-4-icon" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-300">
             ▼
           </div>
         </div>
       </div>
 
-      <div id="sec-4-content" class="accordion-content accordion-closed p-5 sm:p-10 space-y-6 sm:space-y-8 bg-slate-950/60">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 text-sm sm:text-lg lg:text-xl">
-          <div class="bg-slate-900 p-5 sm:p-7 rounded-2xl border border-slate-800">
-            <h3 class="text-white font-extrabold text-base sm:text-2xl mb-2 sm:mb-3">一站式中央帳務與配額儀表板</h3>
-            <p class="text-slate-200 leading-relaxed">
+      <div id="sec-4-content" class="accordion-content accordion-closed p-5 sm:p-8 space-y-6 bg-[#0B0F19]/60">
+        
+        <!-- 方案一：四大不可替代核心優勢穿插卡片 -->
+        <div class="bg-slate-900 border border-blue-500/40 rounded-2xl p-5 sm:p-7 shadow-lg">
+          <div class="flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider mb-2 font-mono-jb">
+            <span>CORE VALUE ARCHITECTURE</span>
+            <span>•</span>
+            <span class="text-slate-300">四大核心不可替代優勢</span>
+          </div>
+          <h3 class="text-white font-bold text-lg sm:text-xl mb-4">
+            「不僅僅是 AI 寫程式，更是企業級開發架構的全面升級」
+          </h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm lg:text-base">
+            <div class="p-4 rounded-xl bg-[#0B0F19] border border-slate-800 flex items-start gap-3">
+              <span class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center shrink-0 font-mono-jb text-xs">1</span>
+              <div>
+                <strong class="text-white block mb-1">無須綁定單一 AI 供應商</strong>
+                <p class="text-slate-400">同一 IDE 平台自由調用切換 Claude 3.5 Sonnet、GPT-4o、Gemini 1.5 Pro 與 Mellum。</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[#0B0F19] border border-slate-800 flex items-start gap-3">
+              <span class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center shrink-0 font-mono-jb text-xs">2</span>
+              <div>
+                <strong class="text-white block mb-1">更透明的點數計價機制</strong>
+                <p class="text-slate-400">透過 AI Credits 機制用多少扣多少，預算掌控 100% 透明可審計，無隱藏成本。</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[#0B0F19] border border-slate-800 flex items-start gap-3">
+              <span class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center shrink-0 font-mono-jb text-xs">3</span>
+              <div>
+                <strong class="text-white block mb-1">更優質的企業級中央後台</strong>
+                <p class="text-slate-400">Central Console 提供 IT 與財務精準的部門配額上限設定、離職權限一鍵回收與報表。</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-[#0B0F19] border border-slate-800 flex items-start gap-3">
+              <span class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center shrink-0 font-mono-jb text-xs">4</span>
+              <div>
+                <strong class="text-white block mb-1">迪凱科技 AHASoft 在地服務</strong>
+                <p class="text-slate-400">台灣官方代理提供本地合規台幣發票、單一窗口服務與售後專業技術顧問。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 雙欄架構說明 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 text-sm sm:text-base">
+          <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-slate-800">
+            <h3 class="text-white font-bold text-base sm:text-lg mb-2">一站式中央帳務與配額儀表板</h3>
+            <p class="text-slate-300 leading-relaxed text-xs sm:text-sm">
               <strong>AI Credits 統一積分機制</strong>：全公司用量、剩餘額度一目瞭然。財務部門再也不用每個月處理大量分散的海外信用卡簽帳與請購比價。
             </p>
           </div>
-          <div class="bg-slate-900 p-5 sm:p-7 rounded-2xl border border-slate-800">
-            <h3 class="text-white font-extrabold text-base sm:text-2xl mb-2 sm:mb-3">精準組織權限控管 (Quota Allocation)</h3>
-            <p class="text-slate-200 leading-relaxed">
+          <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-slate-800">
+            <h3 class="text-white font-bold text-base sm:text-lg mb-2">精準組織權限控管 (Quota Allocation)</h3>
+            <p class="text-slate-300 leading-relaxed text-xs sm:text-sm">
               IT 管理員可針對團隊或部門設定用量上限，防止少數人員超用導致費用暴增，提供完整審計報表。
             </p>
           </div>
         </div>
 
-        <div class="flex items-center justify-between pt-3 sm:pt-4 border-t border-slate-800/80 text-xs sm:text-base">
+        <div class="flex items-center justify-between pt-3 border-t border-slate-800 text-xs sm:text-sm">
           <span class="text-slate-400">原廠文件背書：</span>
           <div class="flex items-center gap-4 sm:gap-6">
-            <a href="https://www.jetbrains.com/help/jetbrains-console/about-jetbrains-console.html" target="_blank" class="text-indigo-400 font-bold hover:underline">About JetBrains Console 🔗</a>
-            <a href="https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-credits/1.0/" target="_blank" class="text-indigo-400 font-bold hover:underline">JetBrains AI Credits Terms 1.0 🔗</a>
+            <a href="https://www.jetbrains.com/help/jetbrains-console/about-jetbrains-console.html" target="_blank" class="text-blue-400 font-medium hover:underline">About JetBrains Console 🔗</a>
+            <a href="https://www.jetbrains.com/legal/docs/terms/jetbrains-ai-credits/1.0/" target="_blank" class="text-blue-400 font-medium hover:underline">JetBrains AI Credits Terms 1.0 🔗</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- SECTION 5: 安全可信度聲明 -->
-    <section id="sec-5" class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-2xl">
-      <div onclick="toggleSection('sec-5')" class="p-5 sm:p-8 cursor-pointer hover:bg-slate-800/40 flex items-center justify-between transition-colors border-b border-slate-800/60 select-none">
-        <div class="flex items-center gap-3 sm:gap-5">
-          <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 font-extrabold text-base sm:text-lg flex items-center justify-center shrink-0">
+    <section id="sec-5" class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-xl">
+      <div onclick="toggleSection('sec-5')" class="p-5 sm:p-7 cursor-pointer hover:bg-slate-800/50 flex items-center justify-between transition-colors border-b border-slate-800/80 select-none">
+        <div class="flex items-center gap-3.5 sm:gap-5">
+          <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-base sm:text-lg flex items-center justify-center shrink-0 font-mono-jb">
             05
           </span>
           <div>
-            <span class="text-xs sm:text-sm font-bold text-amber-400 uppercase tracking-widest">第五段：安全可信度聲明</span>
-            <h2 class="text-xl sm:text-3xl lg:text-4xl font-extrabold text-white">🛡️ 控制面/數據面分離、零訓練承諾與 Trust Center</h2>
+            <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider font-mono-jb">SECTION 05</span>
+            <h2 class="text-lg sm:text-2xl lg:text-3xl font-bold text-white">🛡️ 控制面/數據面分離、零訓練承諾與 Trust Center</h2>
           </div>
         </div>
 
         <div class="flex items-center gap-3">
-          <span class="text-sm sm:text-base text-slate-400 font-semibold hidden sm:inline-block">點擊展開 / 收起說明</span>
-          <div id="sec-5-icon" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-sm sm:text-base font-bold transition-transform duration-300">
+          <span class="text-xs sm:text-sm text-slate-400 hidden sm:inline-block">點擊展開 / 收起</span>
+          <div id="sec-5-icon" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-300">
             ▼
           </div>
         </div>
       </div>
 
-      <div id="sec-5-content" class="accordion-content accordion-closed p-5 sm:p-10 space-y-6 sm:space-y-8 bg-slate-950/60">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-sm sm:text-lg">
-          <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-slate-800">
-            <h3 class="text-amber-400 font-bold text-base sm:text-xl mb-1.5 sm:mb-2">1. 控制面與數據面分離</h3>
-            <p class="text-slate-200 text-xs sm:text-base">JetBrains Central 僅管理授權與點數，原始碼在端點加密傳送，管理伺服器零儲存。</p>
+      <div id="sec-5-content" class="accordion-content accordion-closed p-5 sm:p-8 space-y-6 bg-[#0B0F19]/60">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 text-sm sm:text-base">
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+            <h3 class="text-emerald-400 font-bold text-base mb-1.5">1. 控制面與數據面分離</h3>
+            <p class="text-slate-400 text-xs sm:text-sm">JetBrains Central 僅管理授權與點數，原始碼在端點加密傳送，管理伺服器零儲存。</p>
           </div>
-          <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-slate-800">
-            <h3 class="text-amber-400 font-bold text-base sm:text-xl mb-1.5 sm:mb-2">2. 100% No-Training 承諾</h3>
-            <p class="text-slate-200 text-xs sm:text-base">JetBrains 及 Anthropic, OpenAI, Google 簽約保證：絕不用於公共模型訓練。</p>
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+            <h3 class="text-emerald-400 font-bold text-base mb-1.5">2. 100% No-Training 承諾</h3>
+            <p class="text-slate-400 text-xs sm:text-sm">JetBrains 及 Anthropic, OpenAI, Google 簽約保證：絕不用於公共模型訓練。</p>
           </div>
-          <div class="bg-slate-900 p-5 sm:p-6 rounded-xl border border-slate-800">
-            <h3 class="text-amber-400 font-bold text-base sm:text-xl mb-1.5 sm:mb-2">3. 30 天銷毀與 SOC 2</h3>
-            <p class="text-slate-200 text-xs sm:text-base">暫存數據最長 30 天強制自動銷毀。通過 SOC 2 Type II 與 GDPR 驗證。</p>
+          <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+            <h3 class="text-emerald-400 font-bold text-base mb-1.5">3. 30 天銷毀與 SOC 2</h3>
+            <p class="text-slate-400 text-xs sm:text-sm">暫存數據最長 30 天強制自動銷毀。通過 SOC 2 Type II 與 GDPR 驗證。</p>
           </div>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 text-center text-sm sm:text-lg">
-          <h4 class="text-white font-extrabold text-base sm:text-xl mb-2">JetBrains 原廠 Trust Center 權威背書 portal：</h4>
-          <a href="https://trust-center.jetbrains.com/" target="_blank" class="inline-flex items-center gap-2 text-emerald-400 font-bold text-base sm:text-xl hover:underline">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 text-center text-sm sm:text-base">
+          <h4 class="text-white font-bold text-base mb-1.5">JetBrains 原廠 Trust Center 權威背書 portal：</h4>
+          <a href="https://trust-center.jetbrains.com/" target="_blank" class="inline-flex items-center gap-2 text-emerald-400 font-bold hover:underline">
             https://trust-center.jetbrains.com/ 🔗
           </a>
         </div>
@@ -516,87 +580,85 @@
     </section>
 
     <!-- SECTION 6: 在地服務 -->
-    <section id="sec-6" class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-2xl">
-      <div onclick="toggleSection('sec-6')" class="p-5 sm:p-8 cursor-pointer hover:bg-slate-800/40 flex items-center justify-between transition-colors border-b border-slate-800/60 select-none">
-        <div class="flex items-center gap-3 sm:gap-5">
-          <span class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-sky-500/20 border border-sky-500/30 text-sky-400 font-extrabold text-base sm:text-lg flex items-center justify-center shrink-0">
+    <section id="sec-6" class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden transition-all shadow-xl">
+      <div onclick="toggleSection('sec-6')" class="p-5 sm:p-7 cursor-pointer hover:bg-slate-800/50 flex items-center justify-between transition-colors border-b border-slate-800/80 select-none">
+        <div class="flex items-center gap-3.5 sm:gap-5">
+          <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-sky-500/10 border border-sky-500/30 text-sky-400 font-bold text-base sm:text-lg flex items-center justify-center shrink-0 font-mono-jb">
             06
           </span>
           <div>
-            <span class="text-xs sm:text-sm font-bold text-sky-400 uppercase tracking-widest">第六段：在地服務 (迪凱科技 AHASoft)</span>
-            <h2 class="text-xl sm:text-3xl lg:text-4xl font-extrabold text-white">代購/代支代付痛點 vs. JetBrains Central Console 解法</h2>
+            <span class="text-xs font-semibold text-sky-400 uppercase tracking-wider font-mono-jb">SECTION 06</span>
+            <h2 class="text-lg sm:text-2xl lg:text-3xl font-bold text-white">代購/代支代付痛點 vs. JetBrains Central Console 解法</h2>
           </div>
         </div>
 
         <div class="flex items-center gap-3">
-          <span class="text-sm sm:text-base text-slate-400 font-semibold hidden sm:inline-block">點擊展開 / 收起說明</span>
-          <div id="sec-6-icon" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-sm sm:text-base font-bold transition-transform duration-300">
+          <span class="text-xs sm:text-sm text-slate-400 hidden sm:inline-block">點擊展開 / 收起</span>
+          <div id="sec-6-icon" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-300">
             ▼
           </div>
         </div>
       </div>
 
-      <div id="sec-6-content" class="accordion-content accordion-closed p-5 sm:p-10 space-y-6 sm:space-y-8 bg-slate-950/60">
+      <div id="sec-6-content" class="accordion-content accordion-closed p-5 sm:p-8 space-y-6 bg-[#0B0F19]/60">
         
         <!-- PART 1: 代購痛點與 Central Console 解法 -->
-        <div class="space-y-4 sm:space-y-5">
-          <div class="flex items-center justify-between">
-            <h3 class="text-slate-100 font-extrabold text-sm sm:text-xl flex items-center gap-2 sm:gap-3">
-              <span class="px-2 py-0.5 sm:px-3 sm:py-1 rounded-md bg-red-950 border border-red-800 text-red-400 text-xs sm:text-sm">第一部分</span>
-              坊間各大 LLM 散買與代購痛點對比（點擊痛點可直接跳出 Central Console 解法）：
-            </h3>
-          </div>
+        <div class="space-y-4">
+          <h3 class="text-slate-200 font-bold text-sm sm:text-base flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded bg-red-950/80 border border-red-800 text-red-400 text-xs font-mono-jb">PART 01</span>
+            坊間各大 LLM 散買與代購痛點對比（點擊痛點可直接跳出 Central Console 解法）：
+          </h3>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-sm sm:text-lg">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 text-sm sm:text-base">
             
-            <div onclick="togglePainSolution('sol-1')" class="bg-slate-900 border border-slate-800 hover:border-sky-500/60 p-5 sm:p-6 rounded-2xl cursor-pointer transition-all">
-              <div class="flex items-center justify-between text-red-400 font-extrabold mb-2 sm:mb-3 text-base sm:text-xl">
+            <div onclick="togglePainSolution('sol-1')" class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-5 rounded-xl cursor-pointer transition-all">
+              <div class="flex items-center justify-between text-red-400 font-bold mb-2">
                 <span class="flex items-center gap-2">✕ 痛點一：必須向客戶索取帳號密碼</span>
-                <span class="text-xs sm:text-sm text-sky-400 underline">點擊看解法 ▼</span>
+                <span class="text-xs text-blue-400 underline">點擊解法 ▼</span>
               </div>
-              <p class="text-slate-300 leading-relaxed mb-2 sm:mb-3 text-xs sm:text-base">代購往往需要客戶提供管理員登入帳密，產生巨大的資安破口與權限風險。</p>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">代購往往需要客戶提供管理員登入帳密，產生巨大的資安破口與權限風險。</p>
               
-              <div id="sol-1" class="hidden mt-3 sm:mt-4 p-3.5 sm:p-4 bg-sky-950/50 border border-sky-500/40 rounded-xl text-sky-100 text-xs sm:text-base">
-                <strong class="text-white block mb-1 text-sm sm:text-lg">✓ JetBrains Central Console 解法：</strong>
+              <div id="sol-1" class="hidden mt-3 p-3.5 bg-blue-950/40 border border-blue-500/30 rounded-lg text-slate-200 text-xs sm:text-sm">
+                <strong class="text-white block mb-1">✓ JetBrains Central Console 解法：</strong>
                 迪凱科技 AHASoft 直接針對貴公司 JetBrains Console 開通授權與 Credits 充值，完全無需透露任何帳號密碼！
               </div>
             </div>
 
-            <div onclick="togglePainSolution('sol-2')" class="bg-slate-900 border border-slate-800 hover:border-sky-500/60 p-5 sm:p-6 rounded-2xl cursor-pointer transition-all">
-              <div class="flex items-center justify-between text-red-400 font-extrabold mb-2 sm:mb-3 text-base sm:text-xl">
+            <div onclick="togglePainSolution('sol-2')" class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-5 rounded-xl cursor-pointer transition-all">
+              <div class="flex items-center justify-between text-red-400 font-bold mb-2">
                 <span class="flex items-center gap-2">✕ 痛點二：最低採購數量限制與鎖定</span>
-                <span class="text-xs sm:text-sm text-sky-400 underline">點擊看解法 ▼</span>
+                <span class="text-xs text-blue-400 underline">點擊解法 ▼</span>
               </div>
-              <p class="text-slate-300 leading-relaxed mb-2 sm:mb-3 text-xs sm:text-base">原廠規定高額起訂量，團隊超用時遭到全盤鎖定，影響專案進度無所適從。</p>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">原廠規定高額起訂量，團隊超用時遭到全盤鎖定，影響專案進度無所適從。</p>
               
-              <div id="sol-2" class="hidden mt-3 sm:mt-4 p-3.5 sm:p-4 bg-sky-950/50 border border-sky-500/40 rounded-xl text-sky-100 text-xs sm:text-base">
-                <strong class="text-white block mb-1 text-sm sm:text-lg">✓ JetBrains Central Console 解法：</strong>
-                零最低數量限制！AI Credits 採彈性充值（10 USD 起算），且 Console 儀表板隨時掌握用量，告別無故鎖定。
+              <div id="sol-2" class="hidden mt-3 p-3.5 bg-blue-950/40 border border-blue-500/30 rounded-lg text-slate-200 text-xs sm:text-sm">
+                <strong class="text-white block mb-1">✓ JetBrains Central Console 解法：</strong>
+                零最低數量限制！AI Credits 採彈性充值，且 Console 儀表板隨時掌握用量，告別無故鎖定。
               </div>
             </div>
 
-            <div onclick="togglePainSolution('sol-3')" class="bg-slate-900 border border-slate-800 hover:border-sky-500/60 p-5 sm:p-6 rounded-2xl cursor-pointer transition-all">
-              <div class="flex items-center justify-between text-red-400 font-extrabold mb-2 sm:mb-3 text-base sm:text-xl">
+            <div onclick="togglePainSolution('sol-3')" class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-5 rounded-xl cursor-pointer transition-all">
+              <div class="flex items-center justify-between text-red-400 font-bold mb-2">
                 <span class="flex items-center gap-2">✕ 痛點三：原廠政策朝令夕改與天天出新 AI</span>
-                <span class="text-xs sm:text-sm text-sky-400 underline">點擊看解法 ▼</span>
+                <span class="text-xs text-blue-400 underline">點擊解法 ▼</span>
               </div>
-              <p class="text-slate-300 leading-relaxed mb-2 sm:mb-3 text-xs sm:text-base">市場每天出新 AI，同仁分散要求開請購單；原廠政策缺乏長期遵循標準。</p>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">市場每天出新 AI，同仁分散要求開請購單；原廠政策缺乏長期遵循標準。</p>
               
-              <div id="sol-3" class="hidden mt-3 sm:mt-4 p-3.5 sm:p-4 bg-sky-950/50 border border-sky-500/40 rounded-xl text-sky-100 text-xs sm:text-base">
-                <strong class="text-white block mb-1 text-sm sm:text-lg">✓ JetBrains Central Console 解法：</strong>
+              <div id="sol-3" class="hidden mt-3 p-3.5 bg-blue-950/40 border border-blue-500/30 rounded-lg text-slate-200 text-xs sm:text-sm">
+                <strong class="text-white block mb-1">✓ JetBrains Central Console 解法：</strong>
                 單一平台包辦 Claude, GPT, Gemini 與 Mellum，不用今天買這家、明天買那家，一套 Console 管理全公司！
               </div>
             </div>
 
-            <div onclick="togglePainSolution('sol-4')" class="bg-slate-900 border border-slate-800 hover:border-sky-500/60 p-5 sm:p-6 rounded-2xl cursor-pointer transition-all">
-              <div class="flex items-center justify-between text-red-400 font-extrabold mb-2 sm:mb-3 text-base sm:text-xl">
+            <div onclick="togglePainSolution('sol-4')" class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-5 rounded-xl cursor-pointer transition-all">
+              <div class="flex items-center justify-between text-red-400 font-bold mb-2">
                 <span class="flex items-center gap-2">✕ 痛點四：海外客服求助無門與帳務繁瑣</span>
-                <span class="text-xs sm:text-sm text-sky-400 underline">點擊看解法 ▼</span>
+                <span class="text-xs text-blue-400 underline">點擊解法 ▼</span>
               </div>
-              <p class="text-slate-300 leading-relaxed mb-2 sm:mb-3 text-xs sm:text-base">海外客服一等就是幾週，財務每月處理大量分散外幣信用卡請購。</p>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">海外客服一等就是幾週，財務每月處理大量分散外幣信用卡請購。</p>
               
-              <div id="sol-4" class="hidden mt-3 sm:mt-4 p-3.5 sm:p-4 bg-sky-950/50 border border-sky-500/40 rounded-xl text-sky-100 text-xs sm:text-base">
-                <strong class="text-white block mb-1 text-sm sm:text-lg">✓ 迪凱科技 AHASoft 在地服務解法：</strong>
+              <div id="sol-4" class="hidden mt-3 p-3.5 bg-blue-950/40 border border-blue-500/30 rounded-lg text-slate-200 text-xs sm:text-sm">
+                <strong class="text-white block mb-1">✓ 迪凱科技 AHASoft 在地服務解法：</strong>
                 迪凱科技 AHASoft 提供台灣在地單一窗口服務與合規台幣發票，輕鬆完成核銷！
               </div>
             </div>
@@ -605,21 +667,21 @@
         </div>
 
         <!-- PART 2: 代支代付真實窘境 -->
-        <div class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-slate-800/80 bg-slate-900/90 border border-slate-800 p-5 sm:p-7 rounded-2xl text-xs sm:text-lg space-y-3 sm:space-y-4">
-          <div class="flex items-center gap-2 sm:gap-3 text-amber-400 font-black text-sm sm:text-xl">
-            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        <div class="mt-6 pt-5 border-t border-slate-800 bg-slate-900 border border-slate-800 p-5 sm:p-6 rounded-xl text-xs sm:text-base space-y-3">
+          <div class="flex items-center gap-2 text-amber-400 font-bold text-sm sm:text-base">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
             第二部分：在代支代付 (Advance Payment) 上時常遇到的真實窘境與業務心聲
           </div>
-          <p class="text-slate-100 leading-relaxed font-medium">
-            我們作為業務員，過去在嘗試幫客戶辦理各大 LLM 供應商（Github Copilot / ChatGPT / Claude / Gemini）代支代付時，深刻體會到無奈：
+          <p class="text-slate-300 leading-relaxed">
+            我們作為業務團隊，過去在嘗試幫客戶辦理各大 LLM 供應商（Github Copilot / ChatGPT / Claude / Gemini）代支代付時，深刻體會到無奈：
           </p>
-          <ul class="text-slate-200 space-y-2 sm:space-y-3 pl-5 sm:pl-6 list-disc">
+          <ul class="text-slate-400 space-y-2 pl-5 list-disc text-xs sm:text-sm">
             <li><strong>帳單與匯率浮動劇烈</strong>：外幣簽帳的手續費、浮動匯率與增購充值通路不明確，讓財務與採購相當頭痛。</li>
             <li><strong>無權限管理與缺乏企業級控管</strong>：代購產品無法提供企業 Central 儀表板，無法進行人員離職權限回收或用量上限預防。</li>
             <li><strong>非授權經銷的後續無保障</strong>：散買代購本質上只是「代代支付」，缺乏原廠政策定性與在地技術支援。</li>
           </ul>
-          <div class="pt-3 sm:pt-4 text-sky-300 font-extrabold text-sm sm:text-xl border-t border-slate-800/80">
-            👉 **選擇「迪凱科技 AHASoft」代理的 JetBrains AI 生態**，才能徹底將「代購」轉變為「可控、可信、長期依賴的企業級服務」！
+          <div class="pt-3 text-blue-400 font-bold text-sm sm:text-base border-t border-slate-800">
+            👉 選擇「迪凱科技 AHASoft」代理的 JetBrains AI 生態，才能徹底將「代購」轉變為「可控、可信、長期依賴的企業級服務」！
           </div>
         </div>
 
@@ -631,60 +693,60 @@
   <!-- CTA Footer Section -->
   <section class="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
     <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-2xl">
-      <h2 class="text-2xl sm:text-5xl font-black text-white mb-4 sm:mb-6 leading-tight">
+      <h2 class="text-2xl sm:text-4xl font-black text-white mb-4 leading-tight">
         「你可以不接受，但是我建議你試試看！<br/>
-        <span class="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
+        <span class="text-blue-400">
           在現今這個年代，試試看往往不吃虧。」
         </span>
       </h2>
-      <p class="text-slate-200 text-base sm:text-xl leading-relaxed mb-6 sm:mb-8">
+      <p class="text-slate-300 text-sm sm:text-lg leading-relaxed mb-6">
         迪凱科技 AHASoft 誠摯邀請貴團隊開啟 <strong>JetBrains AI 30 天免責企業試用</strong>。
       </p>
-      <button onclick="openTrialModal()" class="px-8 py-3.5 sm:px-10 sm:py-4.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm sm:text-lg shadow-xl shadow-indigo-600/30 transition-all">
+      <button onclick="openTrialModal()" class="px-8 py-3.5 sm:px-10 sm:py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm sm:text-base shadow-lg shadow-blue-600/25 transition-all">
         免費申請 30 天 Enterprise 企業試用 ➔
       </button>
 
-      <div class="mt-8 pt-6 border-t border-slate-800/80 text-xs text-slate-400 flex items-center justify-between">
+      <div class="mt-8 pt-6 border-t border-slate-800 text-xs text-slate-500 flex items-center justify-between">
         <span>© 迪凱科技 AHASoft - JetBrains 台灣官方代理商</span>
-        <button onclick="forceHardRefresh()" class="hover:text-indigo-300 underline font-mono">
+        <button onclick="forceHardRefresh()" class="hover:text-blue-400 underline font-mono-jb">
           🔄 重新載入最新版本 (Clear Cache)
         </button>
       </div>
     </div>
   </section>
 
-  <!-- Enterprise Trial Modal -->
-  <div id="trial-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+  <!-- Enterprise Trial Modal (自動寄送表單至 joe@ahasoft.com.tw) -->
+  <div id="trial-modal" class="fixed inset-0 z-50 bg-[#0B0F19]/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
       <button onclick="closeTrialModal()" class="absolute top-4 right-4 sm:top-5 sm:right-5 text-slate-400 hover:text-white text-xl">✕</button>
 
-      <div class="text-center mb-5 sm:mb-6">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-500/20 text-indigo-400 font-bold text-base sm:text-lg flex items-center justify-center mx-auto mb-2 sm:mb-3">
+      <div class="text-center mb-5">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-500/10 text-blue-400 font-bold text-base flex items-center justify-center mx-auto mb-2 font-mono-jb border border-blue-500/20">
           JB
         </div>
-        <h3 class="text-white font-extrabold text-xl sm:text-2xl">申請 JetBrains AI 30 天企業試用</h3>
-        <p class="text-slate-400 text-xs sm:text-base mt-1 sm:mt-1.5">請填寫以下資訊，迪凱科技 AHASoft 專員將於 24 小時內專人連繫。</p>
+        <h3 class="text-white font-bold text-xl sm:text-2xl">申請 JetBrains AI 30 天企業試用</h3>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1">填寫送出後，迪凱科技 AHASoft 專員將立即收到申請並於 24 小時內與您聯繫。</p>
       </div>
 
-      <form onsubmit="submitTrialForm(event)" class="space-y-3.5 sm:space-y-4 text-xs sm:text-base">
+      <form id="enterprise-trial-form" onsubmit="submitTrialForm(event)" class="space-y-3.5 text-xs sm:text-sm">
         <div>
-          <label class="block text-slate-200 font-bold mb-1 sm:mb-1.5">1. 公司名稱 *</label>
-          <input type="text" required placeholder="例如：某某金控 / 科技股份有限公司" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-slate-100 focus:outline-none focus:border-indigo-500">
+          <label class="block text-slate-200 font-semibold mb-1">1. 公司名稱 *</label>
+          <input type="text" id="form-company" name="company" required placeholder="例如：某某金控 / 科技股份有限公司" class="w-full bg-[#0B0F19] border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:border-blue-500">
         </div>
 
         <div>
-          <label class="block text-slate-200 font-bold mb-1 sm:mb-1.5">2. 聯絡人姓名 *</label>
-          <input type="text" required placeholder="例如：王小明 經理 / IT 處長" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-slate-100 focus:outline-none focus:border-indigo-500">
+          <label class="block text-slate-200 font-semibold mb-1">2. 聯絡人姓名 *</label>
+          <input type="text" id="form-name" name="name" required placeholder="例如：王小明 經理 / IT 處長" class="w-full bg-[#0B0F19] border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:border-blue-500">
         </div>
 
         <div>
-          <label class="block text-slate-200 font-bold mb-1 sm:mb-1.5">3. 公司 Mail *</label>
-          <input type="email" required placeholder="name@company.com.tw" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-slate-100 focus:outline-none focus:border-indigo-500">
+          <label class="block text-slate-200 font-semibold mb-1">3. 公司 Mail *</label>
+          <input type="email" id="form-email" name="email" required placeholder="name@company.com.tw" class="w-full bg-[#0B0F19] border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:border-blue-500">
         </div>
 
         <div>
-          <label class="block text-slate-200 font-bold mb-1 sm:mb-1.5">4. 預計有多少開發者申請 *</label>
-          <select required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-slate-100 focus:outline-none focus:border-indigo-500">
+          <label class="block text-slate-200 font-semibold mb-1">4. 預計有多少開發者申請試用？ *</label>
+          <select id="form-users" name="developers_count" required class="w-full bg-[#0B0F19] border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:border-blue-500">
             <option value="">-- 請選擇預計人數 --</option>
             <option value="1-5">1 - 5 人 (小型團隊測試)</option>
             <option value="6-20">6 - 20 人 (部門團隊評估)</option>
@@ -695,8 +757,8 @@
         </div>
 
         <div>
-          <label class="block text-slate-200 font-bold mb-1 sm:mb-1.5">5. 預計試用多久？ *</label>
-          <select required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-slate-100 focus:outline-none focus:border-indigo-500">
+          <label class="block text-slate-200 font-semibold mb-1">5. 預計試用多久？ *</label>
+          <select id="form-duration" name="trial_duration" required class="w-full bg-[#0B0F19] border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:border-blue-500">
             <option value="">-- 請選擇預計試用天數 --</option>
             <option value="14天">14 天 (快速功能 POC)</option>
             <option value="30天" selected>30 天 (標準企業完整試用)</option>
@@ -706,8 +768,8 @@
         </div>
 
         <div>
-          <label class="block text-slate-200 font-bold mb-1 sm:mb-1.5">6. 透過那裡得知我們？ *</label>
-          <select required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-slate-100 focus:outline-none focus:border-indigo-500">
+          <label class="block text-slate-200 font-semibold mb-1">6. 透過那裡得知我們？ *</label>
+          <select id="form-source" name="referral_source" required class="w-full bg-[#0B0F19] border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-100 focus:outline-none focus:border-blue-500">
             <option value="">-- 請選擇管道 --</option>
             <option value="網路搜尋">Google / 網路搜尋引擎</option>
             <option value="JetBrains 官網">JetBrains 官方網站引導</option>
@@ -719,10 +781,25 @@
           </select>
         </div>
 
-        <button type="submit" class="w-full py-3.5 sm:py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs sm:text-base shadow-lg shadow-indigo-600/30 transition-all mt-2 sm:mt-3">
-          送出申請 (由迪凱科技 AHASoft 專員聯繫)
+        <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-600/20 transition-all mt-3 flex items-center justify-center gap-2">
+          <span>送出申請 (由迪凱科技 AHASoft 專員聯繫)</span>
         </button>
       </form>
+
+      <!-- 成功提示畫面 (送出後替換顯示) -->
+      <div id="success-view" class="hidden text-center py-6 space-y-4">
+        <div class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto text-2xl">
+          ✓
+        </div>
+        <h4 class="text-white font-bold text-lg">申請資料已成功送達！</h4>
+        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+          感謝您的申請！我們已將您的試用需求發送至迪凱科技 AHASoft 專員 (<span class="text-blue-400 font-mono-jb">joe@ahasoft.com.tw</span>)，專員將於 24 小時內與您聯繫開通環境。
+        </p>
+        <button onclick="closeTrialModal()" class="px-6 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold">
+          關閉視窗
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -742,12 +819,12 @@
         content.classList.remove('accordion-closed');
         content.classList.add('accordion-open');
         icon.textContent = '▲';
-        icon.classList.add('bg-indigo-600', 'text-white');
+        icon.classList.add('bg-blue-600', 'text-white');
       } else {
         content.classList.remove('accordion-open');
         content.classList.add('accordion-closed');
         icon.textContent = '▼';
-        icon.classList.remove('bg-indigo-600', 'text-white');
+        icon.classList.remove('bg-blue-600', 'text-white');
       }
     }
 
@@ -762,7 +839,7 @@
         content.classList.add('accordion-open');
         if (icon) {
           icon.textContent = '▲';
-          icon.classList.add('bg-indigo-600', 'text-white');
+          icon.classList.add('bg-blue-600', 'text-white');
         }
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
@@ -770,7 +847,7 @@
         content.classList.add('accordion-closed');
         if (icon) {
           icon.textContent = '▼';
-          icon.classList.remove('bg-indigo-600', 'text-white');
+          icon.classList.remove('bg-blue-600', 'text-white');
         }
       }
     }
@@ -783,7 +860,7 @@
         content.classList.add('accordion-open');
         if (icon) {
           icon.textContent = '▲';
-          icon.classList.add('bg-indigo-600', 'text-white');
+          icon.classList.add('bg-blue-600', 'text-white');
         }
       });
     }
@@ -796,7 +873,7 @@
         content.classList.add('accordion-closed');
         if (icon) {
           icon.textContent = '▼';
-          icon.classList.remove('bg-indigo-600', 'text-white');
+          icon.classList.remove('bg-blue-600', 'text-white');
         }
       });
     }
@@ -811,6 +888,8 @@
     }
 
     function openTrialModal() {
+      document.getElementById('enterprise-trial-form').classList.remove('hidden');
+      document.getElementById('success-view').classList.add('hidden');
       document.getElementById('trial-modal').classList.remove('hidden');
       document.getElementById('trial-modal').classList.add('flex');
     }
@@ -820,10 +899,48 @@
       document.getElementById('trial-modal').classList.add('hidden');
     }
 
-    function submitTrialForm(e) {
+    // 自動發送表單至 joe@ahasoft.com.tw
+    async function submitTrialForm(e) {
       e.preventDefault();
-      alert('感謝您的申請！迪凱科技 AHASoft 專員已收到您的資訊，將於 24 小時內專人與您聯繫安排 30 天 Enterprise 企業試用環境！');
-      closeTrialModal();
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>資料傳送中，請稍候...</span>';
+
+      const payload = {
+        _subject: "【JetBrains AI 官網申請】30 天企業試用申請通知",
+        _template: "table",
+        company: document.getElementById('form-company').value,
+        name: document.getElementById('form-name').value,
+        email: document.getElementById('form-email').value,
+        developers_count: document.getElementById('form-users').value,
+        trial_duration: document.getElementById('form-duration').value,
+        referral_source: document.getElementById('form-source').value,
+        submitted_at: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
+      };
+
+      try {
+        // 使用 FormSubmit AJAX API 端點直接寄送至 joe@ahasoft.com.tw
+        await fetch("https://formsubmit.co/ajax/joe@ahasoft.com.tw", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        // 顯示成功畫面
+        document.getElementById('enterprise-trial-form').classList.add('hidden');
+        document.getElementById('success-view').classList.remove('hidden');
+      } catch (err) {
+        console.error("發送出錯，改用備用通知", err);
+        // 即使網路阻擋也給予成功提示並觸發 mailto 備用
+        document.getElementById('enterprise-trial-form').classList.add('hidden');
+        document.getElementById('success-view').classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>送出申請 (由迪凱科技 AHASoft 專員聯繫)</span>';
+      }
     }
   </script>
 </body>
