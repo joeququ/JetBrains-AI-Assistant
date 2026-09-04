@@ -31,19 +31,19 @@
     }
 
     .accordion-content {
-      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, padding 0.35s ease, margin 0.35s ease;
       overflow: hidden;
     }
     .accordion-closed {
-      max-height: 0 !important;
+      max-height: 0px !important;
       opacity: 0;
       padding-top: 0 !important;
       padding-bottom: 0 !important;
       margin-top: 0 !important;
+      margin-bottom: 0 !important;
       pointer-events: none;
     }
     .accordion-open {
-      max-height: 5000px !important;
       opacity: 1;
     }
     /* 區段導航捲動頂部預留偏移量 (手機 75px，電腦版 220px) */
@@ -692,7 +692,7 @@
               </div>
               <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">代購往往需要客戶提供管理員登入帳密，產生巨大的資安破口與權限風險。</p>
               
-              <div id="sol-1" class="hidden mt-3 p-3.5 bg-blue-950/40 border border-[#087CFA]/40 rounded-lg text-slate-200 text-xs sm:text-sm">
+              <div id="sol-1" class="accordion-content accordion-closed mt-3 p-3.5 bg-blue-950/40 border border-[#087CFA]/40 rounded-lg text-slate-200 text-xs sm:text-sm">
                 <strong class="text-white block mb-1">✓ JetBrains Central Console 解法：</strong>
                 迪凱科技 AHASoft 直接針對貴公司 JetBrains Console 開通授權與 Credits 充值，完全無需透露任何帳號密碼！
               </div>
@@ -705,7 +705,7 @@
               </div>
               <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">原廠規定高額起訂量，團隊超用時遭到全盤鎖定，影響專案進度無所適從。</p>
               
-              <div id="sol-2" class="hidden mt-3 p-3.5 bg-blue-950/40 border border-[#087CFA]/40 rounded-lg text-slate-200 text-xs sm:text-sm">
+              <div id="sol-2" class="accordion-content accordion-closed mt-3 p-3.5 bg-blue-950/40 border border-[#087CFA]/40 rounded-lg text-slate-200 text-xs sm:text-sm">
                 <strong class="text-white block mb-1">✓ JetBrains Central Console 解法：</strong>
                 零最低數量限制！AI Credits 採彈性充值，且 Console 儀表板隨時掌握用量，告別無故鎖定。
               </div>
@@ -718,7 +718,7 @@
               </div>
               <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">市場每天出新 AI，同仁分散要求開請購單；原廠政策缺乏長期遵循標準。</p>
               
-              <div id="sol-3" class="hidden mt-3 p-3.5 bg-blue-950/40 border border-[#087CFA]/40 rounded-lg text-slate-200 text-xs sm:text-sm">
+              <div id="sol-3" class="accordion-content accordion-closed mt-3 p-3.5 bg-blue-950/40 border border-[#087CFA]/40 rounded-lg text-slate-200 text-xs sm:text-sm">
                 <strong class="text-white block mb-1">✓ JetBrains Central Console 解法：</strong>
                 單一平台包辦 Claude, GPT, Gemini 與 Mellum，不用今天買這家、明天買那家，一套 Console 管理全公司！
               </div>
@@ -731,7 +731,7 @@
               </div>
               <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">海外客服一等就是幾週，財務每月處理大量分散外幣信用卡請購。</p>
               
-              <div id="sol-4" class="hidden mt-3 p-3.5 bg-blue-950/40 border border-[#087CFA]/40 rounded-lg text-slate-200 text-xs sm:text-sm">
+              <div id="sol-4" class="accordion-content accordion-closed mt-3 p-3.5 bg-blue-950/40 border border-[#087CFA]/40 rounded-lg text-slate-200 text-xs sm:text-sm">
                 <strong class="text-white block mb-1">✓ 迪凱科技 AHASoft 在地服務解法：</strong>
                 迪凱科技 AHASoft 提供台灣在地單一窗口服務與合規台幣發票，輕鬆完成核銷！
               </div>
@@ -1004,8 +1004,8 @@
   </section>
 
   <!-- Enterprise Trial Modal (Google 官方原生安全 Webhook 傳輸) -->
-  <div id="trial-modal" class="fixed inset-0 z-50 bg-[#0B0F19]/85 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+  <div id="trial-modal" onclick="handleModalBackdropClick(event)" class="fixed inset-0 z-50 bg-[#0B0F19]/85 backdrop-blur-md hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300 ease-out">
+    <div id="trial-modal-card" class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300 ease-out">
       <button onclick="closeTrialModal()" class="absolute top-4 right-4 sm:top-5 sm:right-5 text-slate-400 hover:text-white text-xl">✕</button>
 
       <div class="text-center mb-5">
@@ -1109,6 +1109,31 @@
       window.location.href = cleanUrl + '?refresh=' + new Date().getTime();
     }
 
+    function smoothExpand(element) {
+      if (!element) return;
+      element.classList.remove('accordion-closed', 'hidden');
+      element.classList.add('accordion-open');
+      element.style.maxHeight = '0px';
+      // Force reflow
+      element.offsetHeight;
+      element.style.maxHeight = (element.scrollHeight + 30) + 'px';
+      setTimeout(() => {
+        if (element.classList.contains('accordion-open') && !element.classList.contains('accordion-closed')) {
+          element.style.maxHeight = 'none';
+        }
+      }, 400);
+    }
+
+    function smoothCollapse(element) {
+      if (!element) return;
+      element.style.maxHeight = element.scrollHeight + 'px';
+      // Force reflow
+      element.offsetHeight;
+      element.style.maxHeight = '0px';
+      element.classList.remove('accordion-open');
+      element.classList.add('accordion-closed');
+    }
+
     function toggleSection(secId) {
       const section = document.getElementById(secId);
       const content = document.getElementById(`${secId}-content`);
@@ -1117,20 +1142,20 @@
       const glowClass = `glow-active-${secId}`;
 
       if (isClosed) {
-        content.classList.remove('accordion-closed');
-        content.classList.add('accordion-open');
+        smoothExpand(content);
         section.classList.add(glowClass);
         if (icon) {
           icon.textContent = '▲';
           icon.classList.add('bg-[#6B57FF]', 'text-white');
+          icon.classList.remove('bg-slate-800', 'text-slate-300');
         }
       } else {
-        content.classList.remove('accordion-open');
-        content.classList.add('accordion-closed');
+        smoothCollapse(content);
         section.classList.remove(glowClass);
         if (icon) {
           icon.textContent = '▼';
           icon.classList.remove('bg-[#6B57FF]', 'text-white');
+          icon.classList.add('bg-slate-800', 'text-slate-300');
         }
       }
     }
@@ -1151,21 +1176,21 @@
       });
 
       if (isClosed) {
-        content.classList.remove('accordion-closed');
-        content.classList.add('accordion-open');
+        smoothExpand(content);
         section.classList.add(glowClass);
         if (icon) {
           icon.textContent = '▲';
           icon.classList.add('bg-[#6B57FF]', 'text-white');
+          icon.classList.remove('bg-slate-800', 'text-slate-300');
         }
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
-        content.classList.remove('accordion-open');
-        content.classList.add('accordion-closed');
+        smoothCollapse(content);
         section.classList.remove(glowClass);
         if (icon) {
           icon.textContent = '▼';
           icon.classList.remove('bg-[#6B57FF]', 'text-white');
+          icon.classList.add('bg-slate-800', 'text-slate-300');
         }
       }
     }
@@ -1175,12 +1200,12 @@
         const section = document.getElementById(secId);
         const content = document.getElementById(`${secId}-content`);
         const icon = document.getElementById(`${secId}-icon`);
-        content.classList.remove('accordion-closed');
-        content.classList.add('accordion-open');
+        smoothExpand(content);
         if (section) section.classList.add(`glow-active-${secId}`);
         if (icon) {
           icon.textContent = '▲';
           icon.classList.add('bg-[#6B57FF]', 'text-white');
+          icon.classList.remove('bg-slate-800', 'text-slate-300');
         }
       });
     }
@@ -1190,12 +1215,12 @@
         const section = document.getElementById(secId);
         const content = document.getElementById(`${secId}-content`);
         const icon = document.getElementById(`${secId}-icon`);
-        content.classList.remove('accordion-open');
-        content.classList.add('accordion-closed');
+        smoothCollapse(content);
         if (section) section.classList.remove(`glow-active-${secId}`);
         if (icon) {
           icon.textContent = '▼';
           icon.classList.remove('bg-[#6B57FF]', 'text-white');
+          icon.classList.add('bg-slate-800', 'text-slate-300');
         }
       });
     }
@@ -1205,16 +1230,14 @@
       const icon = document.getElementById(`${faqId}-icon`);
       const isClosed = content.classList.contains('hidden') || content.classList.contains('accordion-closed');
       if (isClosed) {
-        content.classList.remove('hidden', 'accordion-closed');
-        content.classList.add('accordion-open');
+        smoothExpand(content);
         if (icon) {
           icon.textContent = '−';
           icon.classList.add('bg-[#6B57FF]', 'text-white');
           icon.classList.remove('bg-slate-800', 'text-slate-300');
         }
       } else {
-        content.classList.remove('accordion-open');
-        content.classList.add('accordion-closed');
+        smoothCollapse(content);
         if (icon) {
           icon.textContent = '+';
           icon.classList.remove('bg-[#6B57FF]', 'text-white');
@@ -1227,10 +1250,7 @@
       ['faq-1', 'faq-2', 'faq-3', 'faq-4', 'faq-5', 'faq-6', 'faq-7'].forEach(faqId => {
         const content = document.getElementById(`${faqId}-content`);
         const icon = document.getElementById(`${faqId}-icon`);
-        if (content) {
-          content.classList.remove('hidden', 'accordion-closed');
-          content.classList.add('accordion-open');
-        }
+        smoothExpand(content);
         if (icon) {
           icon.textContent = '−';
           icon.classList.add('bg-[#6B57FF]', 'text-white');
@@ -1243,10 +1263,7 @@
       ['faq-1', 'faq-2', 'faq-3', 'faq-4', 'faq-5', 'faq-6', 'faq-7'].forEach(faqId => {
         const content = document.getElementById(`${faqId}-content`);
         const icon = document.getElementById(`${faqId}-icon`);
-        if (content) {
-          content.classList.remove('accordion-open');
-          content.classList.add('accordion-closed');
-        }
+        smoothCollapse(content);
         if (icon) {
           icon.textContent = '+';
           icon.classList.remove('bg-[#6B57FF]', 'text-white');
@@ -1257,23 +1274,51 @@
 
     function togglePainSolution(solId) {
       const sol = document.getElementById(solId);
-      if (sol.classList.contains('hidden')) {
-        sol.classList.remove('hidden');
+      if (!sol) return;
+      const isClosed = sol.classList.contains('hidden') || sol.classList.contains('accordion-closed');
+      if (isClosed) {
+        smoothExpand(sol);
       } else {
-        sol.classList.add('hidden');
+        smoothCollapse(sol);
       }
     }
 
     function openTrialModal() {
       document.getElementById('enterprise-trial-form').classList.remove('hidden');
       document.getElementById('success-view').classList.add('hidden');
-      document.getElementById('trial-modal').classList.remove('hidden');
-      document.getElementById('trial-modal').classList.add('flex');
+      const modal = document.getElementById('trial-modal');
+      const card = document.getElementById('trial-modal-card');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+        if (card) {
+          card.classList.remove('scale-95', 'opacity-0');
+          card.classList.add('scale-100', 'opacity-100');
+        }
+      });
     }
 
     function closeTrialModal() {
-      document.getElementById('trial-modal').classList.remove('flex');
-      document.getElementById('trial-modal').classList.add('hidden');
+      const modal = document.getElementById('trial-modal');
+      const card = document.getElementById('trial-modal-card');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0');
+      if (card) {
+        card.classList.remove('scale-100', 'opacity-100');
+        card.classList.add('scale-95', 'opacity-0');
+      }
+      setTimeout(() => {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+    function handleModalBackdropClick(e) {
+      if (e.target && e.target.id === 'trial-modal') {
+        closeTrialModal();
+      }
     }
 
     // Google Apps Script 原生安全 Webhook 發送機制
