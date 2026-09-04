@@ -124,60 +124,65 @@
   </nav>
 
   <!-- 右側浮動快捷導覽 Dock (電腦版專屬) -->
-  <aside class="fixed right-4 top-28 z-40 hidden lg:flex flex-col gap-2 bg-[#111827]/95 p-3.5 rounded-2xl border border-slate-800 backdrop-blur-xl shadow-2xl w-60 lg:w-64 transition-all">
+  <aside class="fixed right-4 top-28 z-40 hidden lg:flex flex-col gap-2.5 bg-[#111827]/95 p-3.5 rounded-2xl border border-slate-800 backdrop-blur-xl shadow-2xl w-64 lg:w-72 transition-all">
     <div class="text-xs font-bold text-slate-400 uppercase tracking-wider pb-2 border-b border-slate-800 flex items-center justify-between">
       <span class="text-blue-400 font-mono-jb">JETBRAINS AI NAV</span>
       <span class="text-xs text-slate-500 font-mono-jb">01 ~ 07</span>
     </div>
 
-    <div class="flex flex-col gap-1.5 text-xs sm:text-sm">
-      <button onclick="navigateToSection('sec-1')" id="nav-btn-sec-1" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-[#087CFA]/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-[#087CFA]/20 text-[#087CFA] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">01</span>
-        <span class="text-slate-200 font-semibold truncate group-hover:text-blue-400">01. 產品簡介與市場</span>
+    <div class="flex flex-col gap-2 text-xs sm:text-sm">
+      <button onclick="navigateToSection('sec-1')" id="nav-btn-sec-1" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-[#087CFA] hover:shadow-[0_0_15px_rgba(8,124,250,0.35)] text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-[#087CFA]/25 text-[#38bdf8] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb shadow-[0_0_8px_rgba(8,124,250,0.4)]">01</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-blue-300">01. 產品簡介與市場</span>
       </button>
 
-      <button onclick="navigateToSection('sec-2')" id="nav-btn-sec-2" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-[#AF1DF5]/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-[#AF1DF5]/20 text-[#AF1DF5] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">02</span>
-        <span class="text-slate-200 font-semibold truncate group-hover:text-[#AF1DF5]">02. PSI 靜態分析防幻覺</span>
+      <button onclick="navigateToSection('sec-2')" id="nav-btn-sec-2" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-[#AF1DF5] hover:shadow-[0_0_15px_rgba(175,29,245,0.4)] text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-[#AF1DF5]/25 text-[#e879f9] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb shadow-[0_0_8px_rgba(175,29,245,0.4)]">02</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-[#e879f9]">02. PSI 靜態分析防幻覺</span>
       </button>
 
-      <button onclick="navigateToSection('sec-3')" id="nav-btn-sec-3" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-[#6B57FF]/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-[#6B57FF]/20 text-[#6B57FF] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">03</span>
-        <span class="text-slate-200 font-semibold truncate group-hover:text-[#6B57FF]">03. 開放多模型切換</span>
+      <button onclick="navigateToSection('sec-3')" id="nav-btn-sec-3" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-[#6B57FF] hover:shadow-[0_0_15px_rgba(107,87,255,0.4)] text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-[#6B57FF]/25 text-[#a5b4fc] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb shadow-[0_0_8px_rgba(107,87,255,0.4)]">03</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-[#a5b4fc]">03. 開放多模型切換</span>
       </button>
 
-      <button onclick="navigateToSection('sec-4')" id="nav-btn-sec-4" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-[#087CFA]/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-[#087CFA]/20 text-[#087CFA] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">04</span>
-        <span class="text-slate-200 font-semibold truncate group-hover:text-[#087CFA]">04. 企業後台與四大優勢</span>
+      <button onclick="navigateToSection('sec-4')" id="nav-btn-sec-4" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-[#087CFA] hover:shadow-[0_0_15px_rgba(8,124,250,0.35)] text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-[#087CFA]/25 text-[#38bdf8] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb shadow-[0_0_8px_rgba(8,124,250,0.4)]">04</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-[#38bdf8]">04. 企業後台與四大優勢</span>
       </button>
 
-      <button onclick="navigateToSection('sec-5')" id="nav-btn-sec-5" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">05</span>
-        <span class="text-slate-200 font-semibold truncate group-hover:text-emerald-400">05. 資安承諾與驗證</span>
+      <button onclick="navigateToSection('sec-5')" id="nav-btn-sec-5" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500 hover:shadow-[0_0_15px_rgba(16,185,129,0.35)] text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-emerald-500/25 text-emerald-300 font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb shadow-[0_0_8px_rgba(16,185,129,0.4)]">05</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-emerald-300">05. 資安承諾與驗證</span>
       </button>
 
-      <button onclick="navigateToSection('sec-6')" id="nav-btn-sec-6" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-[#6B57FF]/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-[#6B57FF]/20 text-[#6B57FF] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">06</span>
-        <span class="text-slate-200 font-semibold truncate group-hover:text-[#6B57FF]">06. 迪凱在地服務價值</span>
+      <button onclick="navigateToSection('sec-6')" id="nav-btn-sec-6" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-[#6B57FF] hover:shadow-[0_0_15px_rgba(107,87,255,0.4)] text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-[#6B57FF]/25 text-[#a5b4fc] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb shadow-[0_0_8px_rgba(107,87,255,0.4)]">06</span>
+        <span class="text-slate-200 font-semibold truncate group-hover:text-[#a5b4fc]">06. 迪凱在地服務價值</span>
       </button>
 
-      <button onclick="navigateToSection('sec-7')" id="nav-btn-sec-7" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800/80 hover:border-[#AF1DF5]/60 text-left transition-all flex items-center gap-2.5">
-        <span class="w-6 h-6 rounded-md bg-[#AF1DF5]/20 text-[#AF1DF5] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb">07</span>
-        <span class="text-slate-200 font-semibold truncate group-hover:text-[#AF1DF5]">07. 常見問答 Q&A</span>
+      <button onclick="navigateToSection('sec-7')" id="nav-btn-sec-7" class="nav-btn group p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-[#AF1DF5]/50 hover:border-[#AF1DF5] shadow-[0_0_12px_rgba(175,29,245,0.25)] hover:shadow-[0_0_18px_rgba(175,29,245,0.45)] text-left transition-all flex items-center gap-2.5">
+        <span class="w-6 h-6 rounded-md bg-[#AF1DF5]/30 text-[#f0abfc] font-bold text-xs flex items-center justify-center shrink-0 font-mono-jb shadow-[0_0_8px_rgba(175,29,245,0.5)]">07</span>
+        <span class="text-slate-100 font-semibold truncate group-hover:text-[#f0abfc]">07. 常見問答 Q&A</span>
       </button>
     </div>
 
-    <!-- 右側浮動卡片下方：常見 QA 快捷推薦區塊 -->
-    <div class="mt-1 pt-2.5 border-t border-slate-800/80 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-      <div class="flex items-center justify-between text-[11px] font-bold text-[#AF1DF5] mb-1.5">
-        <span class="flex items-center gap-1">❓ 原廠常見 Q&A (7題)</span>
-        <span class="text-[10px] text-slate-500 font-mono-jb">FAQ</span>
+    <!-- 右側浮動卡片下方：常見 QA 亮彩光暈快捷卡片 -->
+    <div class="mt-1.5 p-3 rounded-xl bg-gradient-to-br from-[#24123a] via-[#151928] to-[#0d1527] border-2 border-[#AF1DF5] shadow-[0_0_20px_rgba(175,29,245,0.4)] relative overflow-hidden group">
+      <div class="absolute -right-6 -top-6 w-16 h-16 rounded-full bg-[#AF1DF5]/30 blur-xl pointer-events-none"></div>
+      
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="flex items-center gap-1.5 text-xs font-black text-[#f0abfc] tracking-wide">
+          <span class="text-sm">❓</span> 原廠常見 QA (7大題)
+        </span>
+        <span class="text-[10px] px-1.5 py-0.5 rounded bg-[#AF1DF5]/30 text-[#f5d0fe] font-mono-jb font-bold border border-[#AF1DF5]/50">FAQ</span>
       </div>
-      <p class="text-[11px] text-slate-400 leading-tight mb-2">
-        生態系統、BYOK、ACP 協定與企業資料安全解答。
+      <p class="text-xs text-slate-200 leading-snug mb-2.5 font-medium">
+        生態系、BYOK、ACP 協定與企業資料安全解答。
       </p>
-      <button onclick="navigateToSection('sec-7')" class="w-full py-1 px-2 rounded-lg bg-[#AF1DF5]/15 hover:bg-[#AF1DF5]/30 text-[#AF1DF5] hover:text-white text-xs font-semibold transition-all text-center border border-[#AF1DF5]/30">
-        直達問答專區 ➔
+      <button onclick="navigateToSection('sec-7')" class="w-full py-2 px-3 rounded-lg jb-ai-gradient-bg hover:opacity-95 text-white text-xs font-bold transition-all text-center shadow-lg shadow-[#AF1DF5]/30 flex items-center justify-center gap-1.5 border border-[#e879f9]/40">
+        <span>開啟問答專區</span>
+        <span class="text-xs font-mono-jb">➔</span>
       </button>
     </div>
 
@@ -758,7 +763,7 @@
     </section>
 
     <!-- SECTION 7: 常見問答 Q&A (JetBrains AI 漸層色系) -->
-    <section id="sec-7" class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl glow-active-sec-7">
+    <section id="sec-7" class="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl">
       <div onclick="toggleSection('sec-7')" class="p-5 sm:p-7 cursor-pointer hover:bg-slate-800/50 flex items-center justify-between transition-colors border-b border-slate-800/80 select-none">
         <div class="flex items-center gap-3.5 sm:gap-5">
           <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#AF1DF5]/10 border border-[#AF1DF5]/40 text-[#AF1DF5] font-bold text-base sm:text-lg flex items-center justify-center shrink-0 font-mono-jb">
@@ -772,13 +777,13 @@
 
         <div class="flex items-center gap-3">
           <span class="text-xs sm:text-sm text-slate-400 hidden sm:inline-block">點擊展開 / 收起</span>
-          <div id="sec-7-icon" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#6B57FF] border border-slate-700 text-white flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-300">
-            ▲
+          <div id="sec-7-icon" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-xs sm:text-sm font-bold transition-transform duration-300">
+            ▼
           </div>
         </div>
       </div>
 
-      <div id="sec-7-content" class="accordion-content accordion-open p-5 sm:p-8 space-y-6 bg-[#0B0F19]/60">
+      <div id="sec-7-content" class="accordion-content accordion-closed p-5 sm:p-8 space-y-6 bg-[#0B0F19]/60">
         
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-2 border-b border-slate-800">
           <p class="text-slate-300 text-xs sm:text-sm">
@@ -805,10 +810,10 @@
                   <h3 class="text-sm sm:text-base font-bold text-white leading-snug">JetBrains 人工智慧生態系統是什麼？</h3>
                 </div>
                 <div id="faq-1-icon" class="w-6 h-6 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 transition-transform">
-                  ▼
+                  +
                 </div>
               </button>
-              <div id="faq-1-content" class="faq-content accordion-open px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
+              <div id="faq-1-content" class="faq-content accordion-content accordion-closed px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
                 <p>JetBrains 打造了全方位的 AI 軟體開發體系，包含五大核心支柱：</p>
                 <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
                   <li><strong>JetBrains IDE 中的 AI 功能</strong>：從編程、版本控制、重構到資料庫任務的 AI 增強功能，乃至自主代理工作流程（Agentic Workflows）。</li>
@@ -828,10 +833,10 @@
                   <h3 class="text-sm sm:text-base font-bold text-white leading-snug">為什麼選擇 JetBrains AI 工具？</h3>
                 </div>
                 <div id="faq-2-icon" class="w-6 h-6 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 transition-transform">
-                  ▼
+                  +
                 </div>
               </button>
-              <div id="faq-2-content" class="faq-content accordion-open px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
+              <div id="faq-2-content" class="faq-content accordion-content accordion-closed px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
                 <p>JetBrains 為使用 AI 建構軟體提供了一個<strong>完全開放且受控的系統</strong>：</p>
                 <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
                   <li><strong>完全開放平台，無廠商綁定（No vendor lock-in）</strong>：可直接使用 JetBrains AI、透過自備金鑰（BYOK）連接自有模型供應商、運行本地端模型，或透過相容 ACP 匯入外部代理。</li>
@@ -851,10 +856,10 @@
                   <h3 class="text-sm sm:text-base font-bold text-white leading-snug">JetBrains IDE 和工具中提供了哪些 AI 編碼代理程式？</h3>
                 </div>
                 <div id="faq-3-icon" class="w-6 h-6 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 transition-transform">
-                  ▼
+                  +
                 </div>
               </button>
-              <div id="faq-3-content" class="faq-content accordion-open px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
+              <div id="faq-3-content" class="faq-content accordion-content accordion-closed px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
                 <p>
                   JetBrains 產品被設計為<strong>編碼代理的開放生態系統</strong>。
                 </p>
@@ -875,10 +880,10 @@
                   <h3 class="text-sm sm:text-base font-bold text-white leading-snug">JetBrains 工具支援哪些 AI 模型？</h3>
                 </div>
                 <div id="faq-4-icon" class="w-6 h-6 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 transition-transform">
-                  ▼
+                  +
                 </div>
               </button>
-              <div id="faq-4-content" class="faq-content accordion-open px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
+              <div id="faq-4-content" class="faq-content accordion-content accordion-closed px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
                 <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
                   <li><strong>透過 JetBrains AI 調用第三方模型</strong>：直接使用來自頂尖供應商（包括 OpenAI、Google、Anthropic 及 xAI）經官方篩選與延遲優化的最新雲端模型。</li>
                   <li><strong>JetBrains 自研與微調模型</strong>：代碼補全（Code Completion）與本地編輯建議等 IDE 核心功能依賴 JetBrains 自研專屬模型（如專為程式語言優化的 <a href="https://www.jetbrains.com/mellum/" target="_blank">Mellum</a>）。</li>
@@ -900,10 +905,10 @@
                   <h3 class="text-sm sm:text-base font-bold text-white leading-snug">JetBrains 產品中的人工智慧是否適合企業使用？</h3>
                 </div>
                 <div id="faq-5-icon" class="w-6 h-6 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 transition-transform">
-                  ▼
+                  +
                 </div>
               </button>
-              <div id="faq-5-content" class="faq-content accordion-open px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
+              <div id="faq-5-content" class="faq-content accordion-content accordion-closed px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
                 <p><strong>完全適合。</strong>JetBrains AI 生態系統專為嚴苛的企業環境量身打造，提供：</p>
                 <ol class="list-decimal pl-5 space-y-1.5 text-slate-300">
                   <li><strong>數據、模型與使用配額的精準掌控</strong>：防止非授權模型存取與無上限超支。</li>
@@ -922,10 +927,10 @@
                   <h3 class="text-sm sm:text-base font-bold text-white leading-snug">JetBrains 如何確保對人工智慧使用的控制？</h3>
                 </div>
                 <div id="faq-6-icon" class="w-6 h-6 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 transition-transform">
-                  ▼
+                  +
                 </div>
               </button>
-              <div id="faq-6-content" class="faq-content accordion-open px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
+              <div id="faq-6-content" class="faq-content accordion-content accordion-closed px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
                 <p>JetBrains 確保開發者與企業組織始終保有絕對控制權：</p>
                 <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
                   <li><strong>自由選擇模型與代理</strong>：您可自主決定組織內部啟用哪些模型或第三方 Agent，亦可隨時停用。</li>
@@ -944,10 +949,10 @@
                   <h3 class="text-sm sm:text-base font-bold text-white leading-snug">JetBrains 是否使用我的程式碼或資料來訓練 AI 模型？</h3>
                 </div>
                 <div id="faq-7-icon" class="w-6 h-6 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center text-xs font-bold shrink-0 transition-transform">
-                  ▼
+                  +
                 </div>
               </button>
-              <div id="faq-7-content" class="faq-content accordion-open px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
+              <div id="faq-7-content" class="faq-content accordion-content accordion-closed px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3.5 space-y-2 faq-answer">
                 <p><strong>您的程式碼與資料 100% 完全屬於您。</strong></p>
                 <p>
                   您完全掌控數據處理流程以及工作流程中所使用的模型或供應商。
@@ -1198,19 +1203,22 @@
     function toggleFaq(faqId) {
       const content = document.getElementById(`${faqId}-content`);
       const icon = document.getElementById(`${faqId}-icon`);
-      if (content.classList.contains('hidden') || content.classList.contains('accordion-closed')) {
+      const isClosed = content.classList.contains('hidden') || content.classList.contains('accordion-closed');
+      if (isClosed) {
         content.classList.remove('hidden', 'accordion-closed');
         content.classList.add('accordion-open');
         if (icon) {
-          icon.textContent = '▲';
+          icon.textContent = '−';
           icon.classList.add('bg-[#6B57FF]', 'text-white');
+          icon.classList.remove('bg-slate-800', 'text-slate-300');
         }
       } else {
         content.classList.remove('accordion-open');
         content.classList.add('accordion-closed');
         if (icon) {
-          icon.textContent = '▼';
+          icon.textContent = '+';
           icon.classList.remove('bg-[#6B57FF]', 'text-white');
+          icon.classList.add('bg-slate-800', 'text-slate-300');
         }
       }
     }
@@ -1224,8 +1232,9 @@
           content.classList.add('accordion-open');
         }
         if (icon) {
-          icon.textContent = '▲';
+          icon.textContent = '−';
           icon.classList.add('bg-[#6B57FF]', 'text-white');
+          icon.classList.remove('bg-slate-800', 'text-slate-300');
         }
       });
     }
@@ -1239,8 +1248,9 @@
           content.classList.add('accordion-closed');
         }
         if (icon) {
-          icon.textContent = '▼';
+          icon.textContent = '+';
           icon.classList.remove('bg-[#6B57FF]', 'text-white');
+          icon.classList.add('bg-slate-800', 'text-slate-300');
         }
       });
     }
